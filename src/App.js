@@ -4,19 +4,20 @@ import React, {Component} from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import {NavLink} from "react-router-dom";
 import "./App.css";
+
 import Location from './Router/Location';
 import Culture from './Router/Culture';
 import Texture from './Router/Texture';
 import Zoning from './Router/Zoning';
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLocationArrow, faSeedling, faList, faShapes } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLocationArrow, faSeedling, faList, faShapes } from '@fortawesome/free-solid-svg-icons';
 
-library.add(faLocationArrow)
-library.add(faSeedling)
-library.add(faShapes)
-library.add(faList)
+library.add(faLocationArrow);
+library.add(faSeedling);
+library.add(faShapes);
+library.add(faList);
 
 class App extends Component {
   render(){

@@ -15,13 +15,14 @@
   font-size: 20px;
   text-align: left;
   padding-left: 65px;
+  margin-top: 20px;
 }
 #header .menu-bar{
   float: right;
   text-align: center;
-  height: 25px;
-  width: 25px;
+  height: 35px;
   font-size: 25px;
   color: #ffffff;
-  padding: 20px;
+  padding-right: 15px;
+  margin-top: 15px;
 }
