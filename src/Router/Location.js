@@ -1,12 +1,14 @@
+import axios from 'axios';
+
 import React, {Component} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import "./Location.css";
+import './Location.css';
+import Municipio from './Municipio';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,9 +22,13 @@ export default class Location extends Component{
     
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
-    
+        this.selectUF = this.selectUF.bind(this);
+        this.selectMunicipio = this.selectMunicipio.bind(this);
+
         this.state = {
           show: false,
+          municipios: [],
+          uf: '',
         };
     }
     
@@ -33,6 +39,23 @@ export default class Location extends Component{
     handleShow() {
         this.setState({ show: true });
     }
+
+    selectUF(event){
+        this.setState({uf: event.target.value});
+    }
+    selectMunicipio(event){
+        axios.get('https://api.cnptia.embrapa.br/agritec/v1/municipios?uf='+this.state.uf, {headers: {'Authorization': 'Bearer d4c07cde-dacc-3194-a535-37300f024951'}})
+            .then(response => {
+                console.log(response.data.data)
+                /*this.setState(()=>{
+                    return {
+                        municipios: response.data.data
+                    }
+                })*/
+        })
+        event.preventDefault();
+    }
+
     render(){
         return(
             <div className='content'>
@@ -90,7 +113,7 @@ export default class Location extends Component{
                             <Form.Group as={Row}>
                                 <Form.Label column sm="3">UF:</Form.Label>
                                 <Col sm="9">
-                                    <Form.Control as="select">
+                                    <Form.Control as="select" value={this.state.uf} onChange={this.selectUF}>
                                         <option value=""></option>
                                         <option value="AC">Acre</option>
                                         <option value="AL">Alagoas</option>
@@ -125,11 +148,11 @@ export default class Location extends Component{
                             <Form.Group as={Row}>
                                 <Form.Label column sm="3">Cidade:</Form.Label>
                                 <Col sm="9">
-                                    <Form.Control as="select">
+                                    <Form.Control as="select" value={this.state.municipio} onFocus={this.selectMunicipio}>
                                         
                                     </Form.Control>
                                 </Col>                                
-                            </Form.Group>
+                            </Form.Group>                            
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
