@@ -8,7 +8,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import './Location.css';
-import Municipio from './Municipio';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -22,13 +21,16 @@ export default class Location extends Component{
     
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleSave = this.handleSave.bind(this);
+
         this.selectUF = this.selectUF.bind(this);
         this.selectMunicipio = this.selectMunicipio.bind(this);
 
         this.state = {
-          show: false,
-          municipios: [],
-          uf: '',
+            show: false,
+            municipios: [],
+            uf: '',
+            codigoIBGE: 0,
         };
     }
     
@@ -40,23 +42,33 @@ export default class Location extends Component{
         this.setState({ show: true });
     }
 
+    handleSave(event) {
+        let city = document.getElementById('city');
+        this.setState({
+            codigoIBGE: event.target.city,
+            show: false 
+        });
+        console.log(this.state.codigoIBGE);
+    }
+
     selectUF(event){
         this.setState({uf: event.target.value});
     }
-    selectMunicipio(event){
-        axios.get('https://api.cnptia.embrapa.br/agritec/v1/municipios?uf='+this.state.uf, {headers: {'Authorization': 'Bearer d4c07cde-dacc-3194-a535-37300f024951'}})
-            .then(response => {
-                console.log(response.data.data)
-                /*this.setState(()=>{
-                    return {
-                        municipios: response.data.data
-                    }
-                })*/
+    selectMunicipio(){
+        axios.get('https://api.cnptia.embrapa.br/agritec/v1/municipios?uf='+this.state.uf+'', {headers: {'Authorization': 'Bearer d4c07cde-dacc-3194-a535-37300f024951'}})
+          .then(response => {
+            this.setState(()=>{
+                return {                        
+                    municipios: response.data.data
+                }
+          })         
         })
-        event.preventDefault();
     }
-
     render(){
+        let municipios = this.state.municipios;
+        let optionItems = municipios.map((data) =>
+            <option key={data.codigoIBGE}>{data.nome}</option>
+        );        
         return(
             <div className='content'>
                 <h2>Localização</h2>
@@ -87,22 +99,6 @@ export default class Location extends Component{
                         </li>
                     </ul>
                     </div>
-                    <div className="container">
-                    <ul className="list">
-                        <li className="list__item">
-                        <input type="radio" className="radio-btn" name="choice" id="opt-2" />
-                        <label for="opt-2" className="label">SÃO JOSÉ DOS CAMPOS - SP</label>
-                        </li>
-                    </ul>
-                    </div>
-                    <div className="container">
-                    <ul className="list">
-                        <li className="list__item">
-                        <input type="radio" className="radio-btn" name="choice" id="opt-3" />
-                        <label for="opt-3" className="label">CURITIBA - PR</label>
-                        </li>
-                    </ul>
-                    </div>
                 </div>
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>
@@ -113,7 +109,7 @@ export default class Location extends Component{
                             <Form.Group as={Row}>
                                 <Form.Label column sm="3">UF:</Form.Label>
                                 <Col sm="9">
-                                    <Form.Control as="select" value={this.state.uf} onChange={this.selectUF}>
+                                    <Form.Control as="select" onChange={this.selectUF}>
                                         <option value=""></option>
                                         <option value="AC">Acre</option>
                                         <option value="AL">Alagoas</option>
@@ -148,8 +144,8 @@ export default class Location extends Component{
                             <Form.Group as={Row}>
                                 <Form.Label column sm="3">Cidade:</Form.Label>
                                 <Col sm="9">
-                                    <Form.Control as="select" value={this.state.municipio} onFocus={this.selectMunicipio}>
-                                        
+                                    <Form.Control as="select" id="city" onFocus={this.selectMunicipio}>
+                                        {optionItems}
                                     </Form.Control>
                                 </Col>                                
                             </Form.Group>                            
@@ -159,7 +155,7 @@ export default class Location extends Component{
                         <Button variant="secondary" onClick={this.handleClose}>
                             Fechar
                         </Button>
-                        <Button variant="primary" onClick={this.handleClose}>
+                        <Button variant="primary" onClick={this.handleSave}>
                             Salvar
                         </Button>
                     </Modal.Footer>
