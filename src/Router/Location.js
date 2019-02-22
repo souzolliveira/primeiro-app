@@ -25,12 +25,17 @@ export default class Location extends Component{
 
         this.selectUF = this.selectUF.bind(this);
         this.selectMunicipio = this.selectMunicipio.bind(this);
+        this.selectedMunicipio = this.selectedMunicipio.bind(this);
 
         this.state = {
             show: false,
             municipios: [],
             uf: '',
-            codigoIBGE: 0,
+            numChildren: 0,
+            newFav: {
+                codigoIBGE: '',
+                nome: '',
+            }
         };
     }
     
@@ -43,17 +48,16 @@ export default class Location extends Component{
     }
 
     handleSave(event) {
-        let city = document.getElementById('city');
         this.setState({
-            codigoIBGE: event.target.city,
-            show: false 
+            show: false,
+            numChildren: this.state.numChildren + 1,
         });
-        console.log(this.state.codigoIBGE);
     }
 
     selectUF(event){
         this.setState({uf: event.target.value});
     }
+
     selectMunicipio(){
         axios.get('https://api.cnptia.embrapa.br/agritec/v1/municipios?uf='+this.state.uf+'', {headers: {'Authorization': 'Bearer d4c07cde-dacc-3194-a535-37300f024951'}})
           .then(response => {
@@ -64,11 +68,27 @@ export default class Location extends Component{
           })         
         })
     }
+    selectedMunicipio(event){
+        const array = event.target.value.split(',');
+        this.setState({
+            newFav: { 
+                codigoIBGE: array[0], 
+                nome: array[1],
+            }
+        });
+    }
     render(){
         let municipios = this.state.municipios;
         let optionItems = municipios.map((data) =>
-            <option key={data.codigoIBGE}>{data.nome}</option>
-        );        
+            <option value={[data.codigoIBGE, data.nome]}>{data.nome}</option>
+        );
+
+        const favoritos = [];
+
+        for (var i = 0; i < this.state.numChildren; i += 1) {
+            favoritos.push(<LocationComponent value={this.state.newFav.codigoIBGE} nome={this.state.newFav.nome} uf={this.state.uf}/>);
+        };
+
         return(
             <div className='content'>
                 <h2>Localização</h2>
@@ -76,12 +96,12 @@ export default class Location extends Component{
                 <div className='options'>
                     <p> atualmente em:</p>
                     <div className="container">
-                    <ul className="list">
-                        <li className="list__item">
-                        <input type="radio" className="radio-btn" name="choice" id="opt-geolocation" />
-                        <label for="opt-geolocation" className="label">CAMPINAS - SP</label>
-                        </li>
-                    </ul>
+                        <ul className="list">
+                            <li className="list__item">
+                            <input type="radio" className="radio-btn" name="choice" id="opt-geolocation" />
+                            <label for="opt-geolocation" className="label">CAMPINAS - SP</label>
+                            </li>
+                        </ul>
                     </div>
                     <p>
                         <div style={{width: "50%", float: "left", marginTop: "7px"}}>  favoritos: </div>
@@ -91,13 +111,8 @@ export default class Location extends Component{
                             </Button> 
                         </div>                        
                     </p>
-                    <div className="container">
-                    <ul className="list">
-                        <li className="list__item">
-                        <input type="radio" className="radio-btn" name="choice" id="opt-1" />
-                        <label for="opt-1" className="label">POUSO ALEGRE - MG</label>
-                        </li>
-                    </ul>
+                    <div className="">
+                        {favoritos}
                     </div>
                 </div>
                 <Modal show={this.state.show} onHide={this.handleClose}>
@@ -144,7 +159,7 @@ export default class Location extends Component{
                             <Form.Group as={Row}>
                                 <Form.Label column sm="3">Cidade:</Form.Label>
                                 <Col sm="9">
-                                    <Form.Control as="select" id="city" onFocus={this.selectMunicipio}>
+                                    <Form.Control as="select" onFocus={this.selectMunicipio} onChange={this.selectedMunicipio}>
                                         {optionItems}
                                     </Form.Control>
                                 </Col>                                
@@ -163,4 +178,14 @@ export default class Location extends Component{
             </div>
         );
     }
-}
+}  
+const LocationComponent = props => 
+    <div className="container">
+        <ul className="list">
+            <li className="list__item">
+                <input type="radio" className="radio-btn" name="choice" id={props.value} />
+                <label for={props.value} className="label">{props.nome} - {props.uf}</label>
+            </li>
+        </ul>
+    </div>;
+  

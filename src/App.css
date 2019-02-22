@@ -18,10 +18,13 @@
   width: 600px;
   height: -webkit-fill-available;
   padding-top: 15px;
+  padding-bottom: 75px;
   background: #e5eff4;
+  overflow-y: auto;
+  
 }
 .ul-router{
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   width: 600px;
   padding: 15px 0px;

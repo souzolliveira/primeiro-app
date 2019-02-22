@@ -1,7 +1,34 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 export default class Culture extends Component{
+    constructor(){
+        super();
+
+        this.state = {
+            culturas: [],
+            length: 0,
+        }
+    }
     render(){
+        axios.get('https://api.cnptia.embrapa.br/agritec/v1/culturas', {headers: {'Authorization': 'Bearer d4c07cde-dacc-3194-a535-37300f024951'}})
+          .then(response => {
+            this.setState(()=>{
+                return {                        
+                    culturas: response.data.data,
+                    length: response.data.data.length,
+                }
+          })         
+        })
+
+        const culturas = this.state.culturas;
+
+        for (var i = 0; i < this.state.length; i += 1) {
+            culturas.push(<CultureComponent value={this.state.culturas.id} nome={this.state.culturas.cultura}/>);
+        };
+
+        console.log(this.state.culturas);
+
         return (
             <div className='content'>
                 <h2>Cultura</h2>
@@ -52,3 +79,13 @@ export default class Culture extends Component{
         );
     }
 }
+const CultureComponent = props => 
+    <div className="container">
+        <ul className="list">
+            <li className="list__item">
+                <input type="radio" className="radio-btn" name="choice" id={props.value} />
+                <label for={props.value} className="label">{props.nome}</label>
+            </li>
+        </ul>
+    </div>;
+  
