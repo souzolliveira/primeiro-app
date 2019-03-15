@@ -52,6 +52,9 @@
   margin: 10px 0 5px 0;
   color: #3c4144;
 }
+#root .content .options p{
+  margin-left: 20px;
+}
 #root .content .options{
   text-align: left;
 }
