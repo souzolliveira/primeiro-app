@@ -4,17 +4,33 @@ import axios from 'axios';
 export default class Culture extends Component{
     constructor(){
         super();
-
-        this.CultureList = this.CultureList.bind(this);
         
         this.state = {
-            culturas: [{
-                id: 0,
-                cultura: '',
-            }],
+            culturas: [
+                {
+                    id: 61,
+                    cultura: 'ARROZ',
+                },
+                {
+                    id: 62,
+                    cultura: 'FEIJÃO',
+                },
+                {
+                    id: 56,
+                    cultura: 'MILHO',
+                },
+                {
+                    id: 60,
+                    cultura: 'SOJA',
+                },
+                {
+                    id: 32533,
+                    cultura: 'TRIGO',
+                },
+            ]
         }
     }
-    CultureList(){
+    componentDidMount(){
         axios.get('https://api.cnptia.embrapa.br/agritec/v1/culturas', {headers: {'Authorization': 'Bearer d4c07cde-dacc-3194-a535-37300f024951'}})
           .then(response => {
             this.setState(()=>{
@@ -38,7 +54,7 @@ export default class Culture extends Component{
         );
 
         return (
-            <div className='content' onClick={this.CultureList}>
+            <div className='content'>
                 <h2>Cultura</h2>
                 <p> selecione a cultura desejada </p>
                 <div className='options' >                

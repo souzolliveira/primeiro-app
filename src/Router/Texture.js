@@ -1,36 +1,44 @@
 import React, {Component} from 'react';
 
 export default class Texture extends Component{
+    constructor(){
+        super();
+        
+        this.state = {
+            texturas: [
+                {
+                    id: 1,
+                    textura: 'ARENOSO',
+                },
+                {
+                    id: 2,
+                    textura: 'ARGILOSO',
+                },
+                {
+                    id: 3,
+                    textura: 'TEXTURA MÉDIA',
+                },
+            ]
+        }
+    }
     render(){
+        let text = this.state.texturas;
+        let optionItems = text.map((data) =>
+            <div className="container">
+                <ul className="list">
+                    <li className="list__item">
+                        <input type="radio" className="radio-btn" name="choice" id={data.id} />
+                        <label for={data.id} className="label">{data.textura}</label>
+                    </li>
+                </ul>
+            </div>
+        );
         return(
             <div className='content'>
                 <h2>Textura</h2>
                 <p> selecione a textura do solo da propriedade </p>
                 <div className='options'>
-                    <div className="container">
-                    <ul className="list">
-                        <li className="list__item">
-                        <input type="radio" className="radio-btn" name="choice" id="opt-0" />
-                        <label for="opt-0" className="label">ARENOSO</label>
-                        </li>
-                    </ul>
-                    </div>
-                    <div className="container">
-                    <ul className="list">
-                        <li className="list__item">
-                        <input type="radio" className="radio-btn" name="choice" id="opt-1" />
-                        <label for="opt-1" className="label">ARGILOSO</label>
-                        </li>
-                    </ul>
-                    </div>
-                    <div className="container">
-                    <ul className="list">
-                        <li className="list__item">
-                        <input type="radio" className="radio-btn" name="choice" id="opt-2" />
-                        <label for="opt-2" className="label">TEXTURA MÉDIA</label>
-                        </li>
-                    </ul>
-                    </div>
+                    {optionItems}
                 </div>
             </div>
         );
