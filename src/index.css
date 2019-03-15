@@ -2,7 +2,7 @@ html{
   text-align: center;
   margin: auto;
   height: 100%;
-  border: 1px solid #0075a4;
+  max-height: 100%;
 }
 body {
   margin: 0;
