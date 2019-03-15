@@ -15,7 +15,7 @@
   background: #e5eff4;
 }
 #root .content{
-  width: 600px;
+  width: 598px;
   height: -webkit-fill-available;
   padding-top: 15px;
   padding-bottom: 75px;
@@ -49,7 +49,7 @@
   color: #0075a4;
 }
 #root .content p{
-  margin: 10px 0 5px 20px;
+  margin: 10px 0 5px 0;
   color: #3c4144;
 }
 #root .content .options{
