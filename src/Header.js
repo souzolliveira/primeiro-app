@@ -15,7 +15,7 @@ class Header extends Component{
     return(
         <div>
             <div className="title">
-                <p>Zoneamento Agrícola de Risco Climático</p>
+                <p>ZARC</p>
             </div>
             <div className="menu-bar">
                 <FontAwesomeIcon icon="ellipsis-v" style="text-align: center;"/>
