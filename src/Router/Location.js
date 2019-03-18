@@ -24,7 +24,6 @@ export default class Location extends Component{
         this.handleSave = this.handleSave.bind(this);
 
         this.selectUF = this.selectUF.bind(this);
-        this.selectMunicipio = this.selectMunicipio.bind(this);
         this.selectedMunicipio = this.selectedMunicipio.bind(this);
 
         this.state = {
@@ -58,15 +57,18 @@ export default class Location extends Component{
         this.setState({uf: event.target.value});
     }
 
-    selectMunicipio(){
-        axios.get('https://api.cnptia.embrapa.br/agritec/v1/municipios?uf='+this.state.uf+'', {headers: {'Authorization': 'Bearer d4c07cde-dacc-3194-a535-37300f024951'}})
-          .then(response => {
-            this.setState(()=>{
-                return {                        
-                    municipios: response.data.data
-                }
-          })         
-        })
+    componentDidUpdate(prevState){        
+        if(prevState.uf !== this.state.uf){
+            console.log("entrou no componentDidUpdate");
+            axios.get('https://api.cnptia.embrapa.br/agritec/v1/municipios?uf='+this.state.uf+'', {headers: {'Authorization': 'Bearer d4c07cde-dacc-3194-a535-37300f024951'}})
+                .then(response => {
+                    this.setState(()=>{
+                        return {                        
+                            municipios: response.data.data
+                        }
+                })         
+            })
+        }
     }
     selectedMunicipio(event){
         const array = event.target.value.split(',');
@@ -159,7 +161,7 @@ export default class Location extends Component{
                             <Form.Group as={Row}>
                                 <Form.Label column sm="3">Cidade:</Form.Label>
                                 <Col sm="9">
-                                    <Form.Control as="select" onFocus={this.selectMunicipio} onChange={this.selectedMunicipio}>
+                                    <Form.Control as="select" onChange={this.selectedMunicipio}>
                                         {optionItems}
                                     </Form.Control>
                                 </Col>                                
