@@ -59,15 +59,15 @@ export default class Location extends Component{
 
     componentDidUpdate(prevState){        
         if(prevState.uf !== this.state.uf){
-            console.log("entrou no componentDidUpdate");
             axios.get('https://api.cnptia.embrapa.br/agritec/v1/municipios?uf='+this.state.uf+'', {headers: {'Authorization': 'Bearer d4c07cde-dacc-3194-a535-37300f024951'}})
-                .then(response => {
-                    this.setState(()=>{
-                        return {                        
-                            municipios: response.data.data
-                        }
-                })         
-            })
+                .then
+                    (response => {
+                        this.setState(()=>{
+                            return {                        
+                                municipios: response.data.data
+                            }
+                        })         
+                    })
         }
     }
     selectedMunicipio(event){
