@@ -2,7 +2,7 @@
 
 import React, {Component} from "react";
 import "./Header.css";
-import {Navbar, Nav} from "react-bootstrap";
+import {Navbar, Nav, Modal} from "react-bootstrap";
 //import {logo} from "logo.svg";
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -11,29 +11,73 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 library.add(faEllipsisV)
 
 export default class Header extends Component{
-  render(){
-    return(        
-        <Navbar collapseOnSelect expand="lg" fixed="top">
-            <Navbar.Brand href="#home">
-                <img
-                    alt=""
-                    src="{logo}"
-                    width="30"
-                    height="30"
-                    className="d-inline-block align-top"
-                />
-                {' ZARC'}
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-            <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="ml-auto">
-                <Nav.Link>Dicionário</Nav.Link>
-                <Nav.Link>Histórico</Nav.Link>
-                <Nav.Link>Tutorial</Nav.Link>
-                <Nav.Link>Sobre</Nav.Link>                        
-            </Nav>
-            </Navbar.Collapse>
-      </Navbar>
-    )
+    constructor(){
+        super();
+        
+        this.state = {
+            showDictionary: false,
+            showHistory: false,
+            showTutorial: false,
+            showAbout: false,
+        };       
+    }
+    render(){
+        return(
+            <div>    
+                <Navbar collapseOnSelect expand="lg" fixed="top">
+                    <Navbar.Brand href="#home">
+                        <img
+                            alt=""
+                            src="{logo}"
+                            width="30"
+                            height="30"
+                            className="d-inline-block align-top"
+                        />
+                        {' ZARC'}
+                    </Navbar.Brand>
+                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                    <Navbar.Collapse id="responsive-navbar-nav">
+                        <Nav className="ml-auto">
+                            <Nav.Link onClick={() => this.setState({showDictionary: true})}>Dicionário</Nav.Link>
+                            <Nav.Link onClick={() => this.setState({showHistory: true})}>Histórico</Nav.Link>
+                            <Nav.Link onClick={() => this.setState({showTutorial: true})}>Tutorial</Nav.Link>
+                            <Nav.Link onClick={() => this.setState({showAbout: true})}>Sobre</Nav.Link>                        
+                        </Nav>
+                    </Navbar.Collapse>
+                </Navbar>
+                <Modal show={this.state.showDictionary} onHide={() => this.setState({showDictionary: false})}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Dicionário</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>                 
+                            
+                    </Modal.Body>
+                </Modal>
+                <Modal show={this.state.showHistory} onHide={() => this.setState({showHistory: false})}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Histórico</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>                 
+                            
+                    </Modal.Body>
+                </Modal>
+                <Modal show={this.state.showTutorial} onHide={() => this.setState({showTutorial: false})}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Tutorial</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>                 
+                            
+                    </Modal.Body>
+                </Modal>
+                <Modal show={this.state.showAbout} onHide={() => this.setState({showAbout: false})}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Sobre</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>                 
+                            
+                    </Modal.Body>
+                </Modal>
+            </div>
+        )
     }
 }
