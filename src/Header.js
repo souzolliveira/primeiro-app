@@ -4,11 +4,6 @@ import React, {Component} from "react";
 import "./Header.css";
 import {Navbar, Nav} from "react-bootstrap";
 //import {logo} from "logo.svg";
-import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
-import Location from './Router/Location';
-import Culture from './Router/Culture';
-import Texture from './Router/Texture';
-import Zoning from './Router/Zoning';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
@@ -27,7 +22,7 @@ export default class Header extends Component{
                     height="30"
                     className="d-inline-block align-top"
                 />
-                {' Zoneamento Agrícola de Risco Climático'}
+                {' ZARC'}
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
