@@ -1,27 +1,13 @@
-#header{
-  background: #0075a4;
-  position: absolute;
-  top: 0;
+.navbar{
+  background: #0075a4 !important;
   width: 100%;
-  height: 65px;
 }
-#header .title{
-  float: left;
+.navbar-brand{
+  color: #fff !important;
 }
-#header .title p{
-  float: left;
-  color: #ffffff;
-  font-size: 20px;
-  text-align: left;
-  padding-left: 65px;
-  margin-top: 20px;
+.navbar-toggler{
+  border-color: rgba(0, 0, 0, 0.3) !important;
 }
-#header .menu-bar{
-  float: right;
-  text-align: center;
-  height: 35px;
-  font-size: 25px;
-  color: #ffffff;
-  padding-right: 15px;
-  margin-top: 15px;
+.nav-link{
+  color: #fff !important;
 }
