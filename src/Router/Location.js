@@ -117,7 +117,7 @@ export default class Location extends Component{
                         {favoritos}
                     </div>
                 </div>
-                <Modal show={this.state.show} onHide={this.handleClose}>
+                <Modal show={this.state.show} onHide={this.handleClose} centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Adicionar nova localização</Modal.Title>
                     </Modal.Header>

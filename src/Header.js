@@ -45,7 +45,7 @@ export default class Header extends Component{
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
-                <Modal show={this.state.showDictionary} onHide={() => this.setState({showDictionary: false})}>
+                <Modal show={this.state.showDictionary} onHide={() => this.setState({showDictionary: false})} centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Dicionário</Modal.Title>
                     </Modal.Header>
@@ -53,7 +53,7 @@ export default class Header extends Component{
                             
                     </Modal.Body>
                 </Modal>
-                <Modal show={this.state.showHistory} onHide={() => this.setState({showHistory: false})}>
+                <Modal show={this.state.showHistory} onHide={() => this.setState({showHistory: false})} centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Histórico</Modal.Title>
                     </Modal.Header>
@@ -61,7 +61,7 @@ export default class Header extends Component{
                             
                     </Modal.Body>
                 </Modal>
-                <Modal show={this.state.showTutorial} onHide={() => this.setState({showTutorial: false})}>
+                <Modal show={this.state.showTutorial} onHide={() => this.setState({showTutorial: false})} centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Tutorial</Modal.Title>
                     </Modal.Header>
@@ -69,7 +69,7 @@ export default class Header extends Component{
                             
                     </Modal.Body>
                 </Modal>
-                <Modal show={this.state.showAbout} onHide={() => this.setState({showAbout: false})}>
+                <Modal show={this.state.showAbout} onHide={() => this.setState({showAbout: false})} centered>
                     <Modal.Header closeButton>
                         <Modal.Title>Sobre</Modal.Title>
                     </Modal.Header>
