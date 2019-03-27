@@ -32,8 +32,9 @@ export default class Location extends Component{
             uf: '',
             numChildren: 0,
             newFav: [{
-                codigoIBGE: '',
-                nome: '',
+                //codigoIBGE: '',
+                //nome: '',
+                //uf: '',
             }],
         };
     }
@@ -71,29 +72,42 @@ export default class Location extends Component{
         }
     }
     selectedMunicipio(event){
-        const newFav = this.state.newFav.slice(0, this.state.numChildren + 1);
+        //const newFav = this.state.newFav.slice(0, this.state.numChildren + 1);
+        const newFav = this.state.newFav[this.state.numChildren];
         const array = event.target.value.split(',');
         this.setState({
             newFav: newFav.concat([
                 { 
-                codigoIBGE: array[0], 
-                nome: array[1],
+                    codigoIBGE: array[0], 
+                    nome: array[1],
+                    uf: array[2],
                 }
             ]),
             numChildren: this.state.numChildren + 1,
         });
     }
     render(){
-        let municipios = this.state.municipios;
-        let optionItems = municipios.map((data) =>
+        const municipios = this.state.municipios;
+        const optionItems = municipios.map((data) =>
             <option value={[data.codigoIBGE, data.nome]}>{data.nome}</option>
         );
+        const favs = '';
+        const favoritos = this.state.newFav;
+        if(this.state.numChildren > 0){
+            const favs = favoritos.map(() => {
+                return (
+                    <LocationComponent 
+                        value={this.state.newFav.codigoIBGE} 
+                        nome={this.state.newFav.nome} 
+                        uf={this.state.newFav.uf}
+                    />
+                );
+            });
+        }
 
-        const favoritos = [];
-
-        for (var i = 0; i < this.state.numChildren; i += 1) {
-            favoritos.push(<LocationComponent value={this.state.newFav.codigoIBGE} nome={this.state.newFav.nome} uf={this.state.uf}/>);
-        };
+        //for (var i = 0; i < this.state.numChildren; i += 1) {
+        //    favoritos.push(<LocationComponent value={this.state.newFav.codigoIBGE} nome={this.state.newFav.nome} uf={this.state.newFav.uf}/>);
+        //};
 
         return(
             <div className='content'>
@@ -118,7 +132,7 @@ export default class Location extends Component{
                         </div>                        
                     </p>
                     <div className="">
-                        {favoritos}
+                        {favs}
                     </div>
                 </div>
                 <Modal show={this.state.show} onHide={this.handleClose} centered>
