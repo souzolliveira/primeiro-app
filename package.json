@@ -9,6 +9,7 @@
     "@fortawesome/react-fontawesome": "^0.1.4",
     "bootstrap": "^4.2.1",
     "flow-bin": "^0.92.1",
+    "gh-pages": "^2.0.1",
     "react": "^16.7.0",
     "react-axios": "^2.0.3",
     "react-dom": "^16.7.0",
@@ -26,7 +27,7 @@
     "start": "react-scripts start",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "build": "react-scripts build && sw-precache --config=sw-precache-config.js",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "flow": "flow"
@@ -42,5 +43,5 @@
   ],
   "devDependencies": {
     "sw-precache": "^5.2.1"
-  }  
+  }
 }
