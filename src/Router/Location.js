@@ -31,10 +31,10 @@ export default class Location extends Component{
             municipios: [],
             uf: '',
             numChildren: 0,
-            newFav: {
+            newFav: [{
                 codigoIBGE: '',
                 nome: '',
-            }
+            }],
         };
     }
     
@@ -49,8 +49,8 @@ export default class Location extends Component{
     handleSave(event) {
         this.setState({
             show: false,
-            numChildren: this.state.numChildren + 1,
         });
+        console.log(this.state.newFav);
     }
 
     selectUF(event){
@@ -71,12 +71,16 @@ export default class Location extends Component{
         }
     }
     selectedMunicipio(event){
+        const newFav = this.state.newFav.slice(0, this.state.numChildren + 1);
         const array = event.target.value.split(',');
         this.setState({
-            newFav: { 
+            newFav: newFav.concat([
+                { 
                 codigoIBGE: array[0], 
                 nome: array[1],
-            }
+                }
+            ]),
+            numChildren: this.state.numChildren + 1,
         });
     }
     render(){

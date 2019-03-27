@@ -27,7 +27,7 @@
     "start": "react-scripts start",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "build": "react-scripts build",
+    "build": "react-scripts build && sw-precache --config=sw-precache-config.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "flow": "flow"
@@ -42,6 +42,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "http-server": "^0.11.1",
     "sw-precache": "^5.2.1"
   }
 }
