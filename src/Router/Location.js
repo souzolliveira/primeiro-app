@@ -32,9 +32,9 @@ export default class Location extends Component{
             uf: '',
             numChildren: 0,
             newFav: [{
-                //codigoIBGE: '',
-                //nome: '',
-                //uf: '',
+                codigoIBGE: '',
+                nome: '',
+                uf: '',
             }],
         };
     }
@@ -72,8 +72,8 @@ export default class Location extends Component{
         }
     }
     selectedMunicipio(event){
-        //const newFav = this.state.newFav.slice(0, this.state.numChildren + 1);
-        const newFav = this.state.newFav[this.state.numChildren];
+        const newFav = this.state.newFav.slice(0, this.state.numChildren + 1);
+        //const newFav = this.state.newFav[this.state.numChildren];
         const array = event.target.value.split(',');
         this.setState({
             newFav: newFav.concat([
@@ -89,12 +89,13 @@ export default class Location extends Component{
     render(){
         const municipios = this.state.municipios;
         const optionItems = municipios.map((data) =>
-            <option value={[data.codigoIBGE, data.nome]}>{data.nome}</option>
+            <option value={[data.codigoIBGE, data.nome, data.uf]}>{data.nome}</option>
         );
-        const favs = '';
+        //const favs = '';
         const favoritos = this.state.newFav;
-        if(this.state.numChildren > 0){
-            const favs = favoritos.map(() => {
+
+        const favs = favoritos.map(() => {
+            if(this.state.numChildren > 0){
                 return (
                     <LocationComponent 
                         value={this.state.newFav.codigoIBGE} 
@@ -102,11 +103,12 @@ export default class Location extends Component{
                         uf={this.state.newFav.uf}
                     />
                 );
-            });
-        }
+            
+            }
+        });
 
         //for (var i = 0; i < this.state.numChildren; i += 1) {
-        //    favoritos.push(<LocationComponent value={this.state.newFav.codigoIBGE} nome={this.state.newFav.nome} uf={this.state.newFav.uf}/>);
+        //   favoritos.push(<LocationComponent value={this.state.newFav.codigoIBGE} nome={this.state.newFav.nome} uf={this.state.newFav.uf}/>);
         //};
 
         return(
