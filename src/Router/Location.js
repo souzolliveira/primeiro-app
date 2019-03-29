@@ -7,6 +7,8 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import {GeolocatedProps, geolocated} from 'react-geolocated';
+
 import './Location.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -16,7 +18,7 @@ import { faPlus, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 library.add(faPlus)
 library.add(faMapMarkerAlt)
 
-export default class Location extends Component{
+class Location extends Component{
     constructor(props, context) {
         super(props, context);
     
@@ -26,7 +28,7 @@ export default class Location extends Component{
 
         this.getUF = this.getUF.bind(this);
         this.getMunicipio = this.getMunicipio.bind(this);
-        //this.getGeolocation = this.getGeolocation.bind(this);
+        this.getGeolocation = this.getGeolocation.bind(this);
 
         this.state = {
             show: false,
@@ -40,6 +42,7 @@ export default class Location extends Component{
             }],
             latitude: '',
             longitude: '',
+            local: '',
         };
     }
     
@@ -55,7 +58,6 @@ export default class Location extends Component{
         this.setState({
             show: false,
         });
-        console.log(this.state.newFav);
     }
 
     getUF(event){
@@ -78,9 +80,13 @@ export default class Location extends Component{
         });
     }
 
-    /*getGeolocation(event){
-
-    }*/
+    getGeolocation(event){
+        event.preventDefault();
+        this.setState({
+            latitude: event.target.latitude.value,
+            longitude: event.target.longitude.value,
+        });
+    }
 
     componentDidUpdate(prevState){        
         if(prevState.uf !== this.state.uf){
@@ -93,6 +99,16 @@ export default class Location extends Component{
                             }
                         })         
                     })
+        }
+        if(prevState.latitude !== this.state.latitude && this.state.latitude !== '' && prevState.longitude !== this.state.longitude && this.state.longitude !== ''){
+            axios.get('https://api.opencagedata.com/geocode/v1/json?q='+this.state.latitude+'+'+this.state.longitude+'&key=8880e42806424cd7b08aa83ee91fe733')
+            .then(response => {
+                this.setState(()=>{
+                    return {                        
+                        local: response.data.results[0].formatted
+                    }
+            })         
+            })
         }
     }
     
@@ -128,19 +144,19 @@ export default class Location extends Component{
                 <div className='options'>
                     <p>
                         <div style={{width: "50%", float: "left", marginTop: "7px"}}>  atualmente em: </div>
-                        <div style={{width: "50%", float: "right", textAlign: "right", paddingRight: "20px"}}>  
-                            <Button 
-                                variant="primary" 
-                                /*onClick={this.getGeolocation} 
-                                id={
-                                    this.props.coords && this.props.coords.latitude+','+this.props.coords && this.props.coords.longitude
-                                }*/
-                                style={
-                                    {background: "#0075a4", border: "1px solid #0075a4"}
-                                    }
-                                    >
-                                <FontAwesomeIcon icon="map-marker-alt" />
-                            </Button> 
+                        <div style={{width: "50%", float: "right", textAlign: "right", paddingRight: "20px"}}>
+                            <Form onSubmit={this.getGeolocation}>
+                                <input type="hidden" name="latitude" value={this.props.coords && this.props.coords.latitude} />
+                                <input type="hidden" name="longitude" value={this.props.coords && this.props.coords.longitude} />
+                                <Button type="submit"
+                                    variant="primary" 
+                                    style={
+                                        {background: "#0075a4", border: "1px solid #0075a4"}
+                                        }
+                                        >
+                                    <FontAwesomeIcon icon="map-marker-alt" />
+                                </Button>
+                            </Form>
                         </div>                        
                     </p>
                     <div className="container">
@@ -236,4 +252,4 @@ const LocationComponent = props =>
             </li>
         </ul>
     </div>;
-  
+export default geolocated()(Location);
