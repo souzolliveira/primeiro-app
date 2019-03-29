@@ -22,28 +22,28 @@ library.add(faList);
 export default class App extends Component {
   render(){
     return (
-      <Router>
-        <div>
-          <ul className='ul-router'>
-            <li>
-              <NavLink to="/"><FontAwesomeIcon icon="location-arrow" /> </NavLink>
-            </li>
-            <li>
-              <NavLink to="/Culture"><FontAwesomeIcon icon="seedling" /> </NavLink>
-            </li>
-            <li>
-              <NavLink to="/Texture"><FontAwesomeIcon icon="shapes" /> </NavLink>
-            </li>
-            <li>
-              <NavLink to="/Zoning"><FontAwesomeIcon icon="list" /> </NavLink>
-            </li>
-          </ul>
-          <Route exact path="/" component={Location} />
-          <Route path="/Culture" component={Culture} />
-          <Route path="/Texture" component={Texture} />
-          <Route path="/Zoning" component={Zoning} />
-        </div>
-      </Router>
+        <Router>
+          <div>
+            <ul className='ul-router'>
+              <li>
+                <NavLink to="/"><FontAwesomeIcon icon="location-arrow" /> </NavLink>
+              </li>
+              <li>
+                <NavLink to="/Culture"><FontAwesomeIcon icon="seedling" /> </NavLink>
+              </li>
+              <li>
+                <NavLink to="/Texture"><FontAwesomeIcon icon="shapes" /> </NavLink>
+              </li>
+              <li>
+                <NavLink to="/Zoning"><FontAwesomeIcon icon="list" /> </NavLink>
+              </li>
+            </ul>
+            <Route exact path="/" component={Location} />
+            <Route path="/Culture" component={Culture} />
+            <Route path="/Texture" component={Texture} />
+            <Route path="/Zoning" component={Zoning} />
+          </div>
+        </Router>
     );
   }
 }

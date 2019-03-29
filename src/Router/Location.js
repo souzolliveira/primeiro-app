@@ -11,9 +11,10 @@ import './Location.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 library.add(faPlus)
+library.add(faMapMarkerAlt)
 
 export default class Location extends Component{
     constructor(props, context) {
@@ -23,8 +24,9 @@ export default class Location extends Component{
         this.handleClose = this.handleClose.bind(this);
         this.handleSave = this.handleSave.bind(this);
 
-        this.selectUF = this.selectUF.bind(this);
-        this.selectedMunicipio = this.selectedMunicipio.bind(this);
+        this.getUF = this.getUF.bind(this);
+        this.getMunicipio = this.getMunicipio.bind(this);
+        //this.getGeolocation = this.getGeolocation.bind(this);
 
         this.state = {
             show: false,
@@ -36,6 +38,8 @@ export default class Location extends Component{
                 nome: '',
                 uf: '',
             }],
+            latitude: '',
+            longitude: '',
         };
     }
     
@@ -54,24 +58,11 @@ export default class Location extends Component{
         console.log(this.state.newFav);
     }
 
-    selectUF(event){
+    getUF(event){
         this.setState({uf: event.target.value});
     }
 
-    componentDidUpdate(prevState){        
-        if(prevState.uf !== this.state.uf){
-            axios.get('https://api.cnptia.embrapa.br/agritec/v1/municipios?uf='+this.state.uf+'', {headers: {'Authorization': 'Bearer d4c07cde-dacc-3194-a535-37300f024951'}})
-                .then
-                    (response => {
-                        this.setState(()=>{
-                            return {                        
-                                municipios: response.data.data
-                            }
-                        })         
-                    })
-        }
-    }
-    selectedMunicipio(event){
+    getMunicipio(event){
         const newFav = this.state.newFav.slice(0, this.state.numChildren + 1);
         //const newFav = this.state.newFav[this.state.numChildren];
         const array = event.target.value.split(',');
@@ -86,6 +77,25 @@ export default class Location extends Component{
             numChildren: this.state.numChildren + 1,
         });
     }
+
+    /*getGeolocation(event){
+
+    }*/
+
+    componentDidUpdate(prevState){        
+        if(prevState.uf !== this.state.uf){
+            axios.get('https://api.cnptia.embrapa.br/agritec/v1/municipios?uf='+this.state.uf+'', {headers: {'Authorization': 'Bearer d4c07cde-dacc-3194-a535-37300f024951'}})
+                .then
+                    (response => {
+                        this.setState(()=>{
+                            return {                        
+                                municipios: response.data.data
+                            }
+                        })         
+                    })
+        }
+    }
+    
     render(){
         const municipios = this.state.municipios;
         const optionItems = municipios.map((data) =>
@@ -116,7 +126,23 @@ export default class Location extends Component{
                 <h2>Localização</h2>
                 <p> selecione a localização desejada </p>
                 <div className='options'>
-                    <p> atualmente em:</p>
+                    <p>
+                        <div style={{width: "50%", float: "left", marginTop: "7px"}}>  atualmente em: </div>
+                        <div style={{width: "50%", float: "right", textAlign: "right", paddingRight: "20px"}}>  
+                            <Button 
+                                variant="primary" 
+                                /*onClick={this.getGeolocation} 
+                                id={
+                                    this.props.coords && this.props.coords.latitude+','+this.props.coords && this.props.coords.longitude
+                                }*/
+                                style={
+                                    {background: "#0075a4", border: "1px solid #0075a4"}
+                                    }
+                                    >
+                                <FontAwesomeIcon icon="map-marker-alt" />
+                            </Button> 
+                        </div>                        
+                    </p>
                     <div className="container">
                         <ul className="list">
                             <li className="list__item">
@@ -146,7 +172,7 @@ export default class Location extends Component{
                             <Form.Group as={Row}>
                                 <Form.Label column sm="3">UF:</Form.Label>
                                 <Col sm="9">
-                                    <Form.Control as="select" onChange={this.selectUF}>
+                                    <Form.Control as="select" onChange={this.getUF}>
                                         <option value=""></option>
                                         <option value="AC">Acre</option>
                                         <option value="AL">Alagoas</option>
@@ -179,9 +205,9 @@ export default class Location extends Component{
                                 </Col>                                
                             </Form.Group>
                             <Form.Group as={Row}>
-                                <Form.Label column sm="3">Cidade:</Form.Label>
+                                <Form.Label column sm="3">Município:</Form.Label>
                                 <Col sm="9">
-                                    <Form.Control as="select" onChange={this.selectedMunicipio}>
+                                    <Form.Control as="select" onChange={this.getMunicipio}>
                                         {optionItems}
                                     </Form.Control>
                                 </Col>                                

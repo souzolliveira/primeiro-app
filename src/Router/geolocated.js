@@ -4,7 +4,7 @@ import trim from 'trim';
 import {geolocated} from 'react-geolocated';
 import Form from 'react-bootstrap/Form';
 
-class Demo extends React.Component {
+class Demo extends React.Component{
   constructor(props, context){
     super(props, context);
 
@@ -13,16 +13,16 @@ class Demo extends React.Component {
 
     this.state = {
       local: "",
-      coords: '',
-      cidade: '',
+      latitude: "",
+      longitude: "",
+      cidade: "",
       cep: "",
       ibge: "",
     }
    
   }
-  getLocal = (event)=>{
-    event.preventDefault();
-    axios.get('https://api.opencagedata.com/geocode/v1/json?q='+event.target.coords.value+'&key=8880e42806424cd7b08aa83ee91fe733')
+  getLocal = ()=>{
+    axios.get('https://api.opencagedata.com/geocode/v1/json?q='+this.state.latitude+'+'+this.state.longitude+'&key=8880e42806424cd7b08aa83ee91fe733')
           .then(response => {
             this.setState(()=>{
                 return {                        
@@ -52,21 +52,12 @@ class Demo extends React.Component {
     console.log(this.state.ibge);
   }
   render() {
-    return !this.props.isGeolocationAvailable
-        ? <div>Your browser does not support Geolocation</div>
-        : !this.props.isGeolocationEnabled
-          ? <div>Geolocation is not enabled</div>
-          : this.props.coords
-            ? <div>
-                <div>
-                  <Form onSubmit={this.getLocal}>
-                    <input type="text" name="coords" value={this.props.coords.latitude+'+'+this.props.coords.longitude} />         
-                    <button type="submit">Procurar</button>
-                  </Form>
-                  <button onClick={this.getCep}>CEP</button>
-                </div>    
-              </div>
-            : <div>Getting the location data&hellip; </div>
+    return (
+      <div>
+        latitude: {this.props.coords && this.props.coords.latitude}
+        longitude: {this.props.coords && this.props.coords.longitude}
+      </div>
+    )
   }
 }
 export default geolocated({
