@@ -31,7 +31,7 @@ export default class Culture extends Component{
         }
     }
     componentDidMount(){
-        axios.get('https://api.cnptia.embrapa.br/agritec/v1/culturas', {headers: {'Authorization': 'Bearer d4c07cde-dacc-3194-a535-37300f024951'}})
+        axios.get('https://api.cnptia.embrapa.br/agritec/v1/culturas', {headers: {'Authorization': 'Bearer 8102311a-4abd-3449-a69c-2400c70e71c4'}})
           .then(response => {
             this.setState(()=>{
                 return {                        

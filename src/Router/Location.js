@@ -58,6 +58,8 @@ class Location extends Component{
         this.setState({
             show: false,
         });
+        console.log(this.state.newFav);
+        console.log(this.state.numChildren);
     }
 
     getUF(event){
@@ -66,18 +68,31 @@ class Location extends Component{
 
     getMunicipio(event){
         const newFav = this.state.newFav.slice(0, this.state.numChildren + 1);
-        //const newFav = this.state.newFav[this.state.numChildren];
         const array = event.target.value.split(',');
-        this.setState({
-            newFav: newFav.concat([
-                { 
-                    codigoIBGE: array[0], 
-                    nome: array[1],
-                    uf: array[2],
-                }
-            ]),
-            numChildren: this.state.numChildren + 1,
-        });
+        if(this.state.newFav == []){
+            this.setState({
+                newFav: ([
+                    { 
+                        codigoIBGE: array[0], 
+                        nome: array[1],
+                        uf: array[2],
+                    }
+                ]),
+                numChildren: this.state.numChildren + 1,
+            });
+        }
+        else{
+            this.setState({
+                newFav: newFav.concat([
+                    { 
+                        codigoIBGE: array[0], 
+                        nome: array[1],
+                        uf: array[2],
+                    }
+                ]),
+                numChildren: this.state.numChildren + 1,
+            });
+        }
     }
 
     getGeolocation(event){
@@ -88,26 +103,23 @@ class Location extends Component{
         });
     }
 
-    componentDidUpdate(prevState){        
+    componentDidUpdate(prevProps, prevState){        
         if(prevState.uf !== this.state.uf){
-            axios.get('https://api.cnptia.embrapa.br/agritec/v1/municipios?uf='+this.state.uf+'', {headers: {'Authorization': 'Bearer d4c07cde-dacc-3194-a535-37300f024951'}})
+            axios.get('https://api.cnptia.embrapa.br/agritec/v1/municipios?uf='+this.state.uf+'', {headers: {'Authorization': 'Bearer 8102311a-4abd-3449-a69c-2400c70e71c4'}})
                 .then
                     (response => {
-                        this.setState(()=>{
-                            return {                        
-                                municipios: response.data.data
-                            }
-                        })         
+                        this.setState({                       
+                            municipios: response.data.data
+                        })        
                     })
         }
         if(prevState.latitude !== this.state.latitude && this.state.latitude !== '' && prevState.longitude !== this.state.longitude && this.state.longitude !== ''){
             axios.get('https://api.opencagedata.com/geocode/v1/json?q='+this.state.latitude+'+'+this.state.longitude+'&key=8880e42806424cd7b08aa83ee91fe733')
             .then(response => {
-                this.setState(()=>{
-                    return {                        
-                        local: response.data.results[0].formatted
-                    }
-            })         
+                this.setState({                       
+                    local: response.data.results[0].formatted
+                    
+                })         
             })
         }
     }
@@ -133,9 +145,9 @@ class Location extends Component{
             }
         });
 
-        //for (var i = 0; i < this.state.numChildren; i += 1) {
-        //   favoritos.push(<LocationComponent value={this.state.newFav.codigoIBGE} nome={this.state.newFav.nome} uf={this.state.newFav.uf}/>);
-        //};
+        /*for (var i = 1; i <= this.state.numChildren; i ++) {
+           favoritos[1].push(<LocationComponent value={this.state.newFav.codigoIBGE} nome={this.state.newFav.nome} uf={this.state.newFav.uf}/>);
+        };*/
 
         return(
             <div className='content'>
