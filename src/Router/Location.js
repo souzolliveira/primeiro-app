@@ -58,8 +58,6 @@ class Location extends Component{
         this.setState({
             show: false,
         });
-        console.log(this.state.newFav);
-        console.log(this.state.numChildren);
     }
 
     getUF(event){
@@ -69,7 +67,7 @@ class Location extends Component{
     getMunicipio(event){
         const newFav = this.state.newFav.slice(0, this.state.numChildren + 1);
         const array = event.target.value.split(',');
-        if(this.state.newFav == []){
+        if(this.state.numChildren == 0){
             this.setState({
                 newFav: ([
                     { 
@@ -105,7 +103,7 @@ class Location extends Component{
 
     componentDidUpdate(prevProps, prevState){        
         if(prevState.uf !== this.state.uf){
-            axios.get('https://api.cnptia.embrapa.br/agritec/v1/municipios?uf='+this.state.uf+'', {headers: {'Authorization': 'Bearer 8102311a-4abd-3449-a69c-2400c70e71c4'}})
+            axios.get('https://api.cnptia.embrapa.br/agritec/v1/municipios?uf='+this.state.uf+'', {headers: {'Authorization': 'Bearer f23a7414-2096-3cc4-93df-1f9b8cdcc548'}})
                 .then
                     (response => {
                         this.setState({                       
@@ -129,26 +127,20 @@ class Location extends Component{
         const optionItems = municipios.map((data) =>
             <option value={[data.codigoIBGE, data.nome, data.uf]}>{data.nome}</option>
         );
-        //const favs = '';
         const favoritos = this.state.newFav;
 
-        const favs = favoritos.map(() => {
+        const favs = favoritos.map((data) => {
             if(this.state.numChildren > 0){
                 return (
                     <LocationComponent 
-                        value={this.state.newFav.codigoIBGE} 
-                        nome={this.state.newFav.nome} 
-                        uf={this.state.newFav.uf}
+                        codigo={data.codigoIBGE} 
+                        nome={data.nome} 
+                        uf={data.uf}
                     />
                 );
             
             }
         });
-
-        /*for (var i = 1; i <= this.state.numChildren; i ++) {
-           favoritos[1].push(<LocationComponent value={this.state.newFav.codigoIBGE} nome={this.state.newFav.nome} uf={this.state.newFav.uf}/>);
-        };*/
-
         return(
             <div className='content'>
                 <h2>Localização</h2>
@@ -236,6 +228,7 @@ class Location extends Component{
                                 <Form.Label column sm="3">Município:</Form.Label>
                                 <Col sm="9">
                                     <Form.Control as="select" onChange={this.getMunicipio}>
+                                        <option value=""></option>
                                         {optionItems}
                                     </Form.Control>
                                 </Col>                                
@@ -259,8 +252,8 @@ const LocationComponent = props =>
     <div className="container">
         <ul className="list">
             <li className="list__item">
-                <input type="radio" className="radio-btn" name="choice" id={props.value} />
-                <label for={props.value} className="label">{props.nome} - {props.uf}</label>
+                <input type="radio" className="radio-btn" name="choice" id={props.codigo} />
+                <label for={props.codigo} className="label">{props.nome} - {props.uf}</label>
             </li>
         </ul>
     </div>;
