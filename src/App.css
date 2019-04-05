@@ -20,7 +20,8 @@
   padding-bottom: 75px;
   background: #e5eff4;
   overflow-y: auto;
-  
+  max-width: 600px;
+  margin: auto;
 }
 .ul-router{
   position: fixed;

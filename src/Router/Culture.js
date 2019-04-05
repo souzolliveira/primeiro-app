@@ -4,7 +4,6 @@ import axios from 'axios';
 export default class Culture extends Component{
     constructor(){
         super();
-        //{id: 61, cultura: 'ARROZ',},{id: 62,cultura: 'FEIJÃO',},{id: 56,cultura: 'MILHO',},{id: 60,cultura: 'SOJA',},{id: 32533,cultura: 'TRIGO',},
         this.state = {
             culturas: [
                 {
@@ -23,7 +22,6 @@ export default class Culture extends Component{
                 }
           })
         })
-        //console.log(this.state.culturas);
     }
     render(){
         let cult = this.state.culturas;
