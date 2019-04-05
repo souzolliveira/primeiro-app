@@ -1,13 +1,13 @@
 {
   "main.css": "/primeiro-app/static/css/main.4b79d110.chunk.css",
-  "main.js": "/primeiro-app/static/js/main.db74e32c.chunk.js",
-  "main.js.map": "/primeiro-app/static/js/main.db74e32c.chunk.js.map",
+  "main.js": "/primeiro-app/static/js/main.77b53b7c.chunk.js",
+  "main.js.map": "/primeiro-app/static/js/main.77b53b7c.chunk.js.map",
   "static/js/1.e5d04595.chunk.js": "/primeiro-app/static/js/1.e5d04595.chunk.js",
   "static/js/1.e5d04595.chunk.js.map": "/primeiro-app/static/js/1.e5d04595.chunk.js.map",
   "runtime~main.js": "/primeiro-app/static/js/runtime~main.e345aeee.js",
   "runtime~main.js.map": "/primeiro-app/static/js/runtime~main.e345aeee.js.map",
   "static/css/main.4b79d110.chunk.css.map": "/primeiro-app/static/css/main.4b79d110.chunk.css.map",
   "index.html": "/primeiro-app/index.html",
-  "precache-manifest.c6a5a40b0640a97228d71bc09bbc7c00.js": "/primeiro-app/precache-manifest.c6a5a40b0640a97228d71bc09bbc7c00.js",
+  "precache-manifest.ebba85f2703e9e36ddedd924eec21f0e.js": "/primeiro-app/precache-manifest.ebba85f2703e9e36ddedd924eec21f0e.js",
   "service-worker.js": "/primeiro-app/service-worker.js"
 }
