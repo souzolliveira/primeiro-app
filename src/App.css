@@ -17,7 +17,6 @@
 #root .content{
   width: 100%;
   height: -webkit-fill-available;
-  padding-top: 15px;
   padding-bottom: 75px;
   background: #e5eff4;
   overflow-y: auto;
@@ -33,7 +32,7 @@
 }
 #root .ul-router li{
   float: left;
-  width: 25%;
+  width: 20%;
   list-style: none;
 }
 #root .ul-router li a{
@@ -112,4 +111,10 @@
 	border: 5px solid #3c4144;
 	border-radius: 50%;
 	transition: all 0.25s linear;
+}
+
+/************************ZONING*************************/
+.zoning p{
+  margin: 0 !important;
+  text-align: center;
 }
