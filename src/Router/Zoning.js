@@ -203,10 +203,10 @@ export default class Texture extends Component{
                     </Row>                
             );
             
-        });
+        });//<h2>Zoneamento</h2> 
         return(
             <div className='content zoning'>
-                <h2>Zoneamento</h2>                
+                               
                     <Row style={{maxWidth: "300px", textAlign: "center", margin: "0px auto", background: "#0075a4", color: "#e5eff4"}}>
                         <Col> CACHOEIRA DE MINAS - MG </Col>
                     </Row>
@@ -224,7 +224,7 @@ export default class Texture extends Component{
                     </Row>
 
                     {zoning}
-                    
+
                     <Row style={{maxWidth: "300px", textAlign: "center", margin: "0px auto", borderLeft: "1px solid #0075a4", borderRight: "1px solid #0075a4"}}>
                         <br />
                     </Row>
