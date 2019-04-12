@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import trim from 'trim';
 
 import {GeolocatedProps, geolocated} from 'react-geolocated';
 
@@ -42,7 +43,10 @@ class Location extends Component{
             }],
             latitude: '',
             longitude: '',
-            local: '',
+            geolocal: '',
+            cidade: '',
+            cep: '',
+            codIBGE: '',
         };
     }
     
@@ -115,10 +119,27 @@ class Location extends Component{
             axios.get('https://api.opencagedata.com/geocode/v1/json?q='+this.state.latitude+'+'+this.state.longitude+'&key=8880e42806424cd7b08aa83ee91fe733')
             .then(response => {
                 this.setState({                       
-                    local: response.data.results[0].formatted
+                    geolocal: response.data.results[0].formatted
                     
                 })         
             })
+        }
+        if(prevState.geolocal !== this.state.geolocal && this.state.geolocal !== ''){
+            const localSplit = this.state.geolocal.split(',');
+            this.setState({
+                cidade: localSplit[2],
+                cep: localSplit[3],
+            });            
+        }
+        if(prevState.cep !== this.state.cep && this.state.cep !== ''){
+            const newCep = trim(this.state.cep);
+            axios.get('https://viacep.com.br/ws/'+newCep+'/json/')
+                .then(response => {
+                    this.setState({
+                        cep: newCep,
+                        codIBGE: response.data.ibge,                        
+                    })         
+                })
         }
     }
     
@@ -141,6 +162,8 @@ class Location extends Component{
             
             }
         });
+        const cidade = this.state.cidade;
+        const codIBGE = this.state.codIBGE;
         return(
             <div className='content'>
                 <h2>Localização</h2>
@@ -166,8 +189,8 @@ class Location extends Component{
                     <div className="container">
                         <ul className="list">
                             <li className="list__item">
-                            <input type="radio" className="radio-btn" name="choice" id="opt-geolocation" />
-                            <label for="opt-geolocation" className="label">CAMPINAS - SP</label>
+                                <input type="radio" className="radio-btn" name="choice" id={codIBGE} />
+                                <label for={codIBGE} className="label">{cidade}</label>
                             </li>
                         </ul>
                     </div>
