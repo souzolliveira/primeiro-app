@@ -50,24 +50,10 @@ class Location extends Component{
         };
     }
     
-    handleClose() {
-        this.setState({ show: false });
-    }
-    
-    handleShow() {
-        this.setState({ show: true });
-    }
-
-    handleSave(event) {
-        this.setState({
-            show: false,
-        });
-    }
-
-    getUF(event){
-        this.setState({uf: event.target.value});
-    }
-
+    handleClose() {this.setState({ show: false });}    
+    handleShow() {this.setState({ show: true });}
+    handleSave(event) {this.setState({ show: false });}
+    getUF(event){ this.setState({ uf: event.target.value }); }
     getMunicipio(event){
         const newFav = this.state.newFav.slice(0, this.state.numChildren + 1);
         const array = event.target.value.split(',');
@@ -144,6 +130,11 @@ class Location extends Component{
     }
     
     render(){
+        console.log(this.state.geolocal);
+        console.log(this.state.cidade);
+        console.log(this.state.cep);
+        console.log(this.state.codIBGE);
+        
         const municipios = this.state.municipios;
         const optionItems = municipios.map((data) =>
             <option value={[data.codigoIBGE, data.nome, data.uf]}>{data.nome}</option>
