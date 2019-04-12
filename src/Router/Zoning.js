@@ -9,17 +9,17 @@ export default class Texture extends Component{
         super(props, context);
         this.state = {
             zoneamento: [                
-                {mes: "Janeiro", dec01: 0, dec02: 40, dec03: 0},
+                {mes: "Janeiro", dec01: 0, dec02: 0, dec03: 0},
                 {mes: "Fevereiro", dec01: 0, dec02: 0, dec03: 0},
-                {mes: "Março", dec01: 20, dec02: 0, dec03: 0},
+                {mes: "Março", dec01: 0, dec02: 0, dec03: 0},
                 {mes: "Abril", dec01: 0, dec02: 0, dec03: 0},
                 {mes: "Maio", dec01: 0, dec02: 0, dec03: 0},
                 {mes: "Junho", dec01: 0, dec02: 0, dec03: 0},
-                {mes: "Julho", dec01: 0, dec02: 0, dec03: 20},
+                {mes: "Julho", dec01: 0, dec02: 0, dec03: 0},
                 {mes: "Agosto", dec01: 0, dec02: 0, dec03: 0},
-                {mes: "Setembro", dec01: 20, dec02: 0, dec03: 0},
-                {mes: "Outubro", dec01: 0, dec02: 0, dec03: 40},
-                {mes: "Novembro", dec01: 0, dec02: 30, dec03: 0},
+                {mes: "Setembro", dec01: 0, dec02: 0, dec03: 0},
+                {mes: "Outubro", dec01: 0, dec02: 0, dec03: 0},
+                {mes: "Novembro", dec01: 0, dec02: 0, dec03: 0},
                 {mes: "Dezembro", dec01: 0, dec02: 0, dec03: 0}                
             ],
             zoneamento20: [{
@@ -31,8 +31,8 @@ export default class Texture extends Component{
                 mesIni: 0,
                 diaFim: 0,
                 mesFim: 0,
-                safraIni: 2018,
-                safraFim: 2019,
+                safraIni: 0,
+                safraFim: 0,
                 risco: 0
             }],
             zoneamento30: [{
@@ -44,8 +44,8 @@ export default class Texture extends Component{
                 mesIni: 0,
                 diaFim: 0,
                 mesFim: 0,
-                safraIni: 2018,
-                safraFim: 2019,
+                safraIni: 0,
+                safraFim: 0,
                 risco: 0
             }],
             zoneamento40: [{
@@ -57,26 +57,26 @@ export default class Texture extends Component{
                 mesIni: 0,
                 diaFim: 0,
                 mesFim: 0,
-                safraIni: 2018,
-                safraFim: 2019,
+                safraIni: 0,
+                safraFim: 0,
                 risco: 0
             }],
         }        
     }
     componentDidMount(){
-        axios.get('https://api.cnptia.embrapa.br/agritec/v1/zoneamento?idCultura=62&codigoIBGE=3109709', {headers: {'Authorization': 'Bearer f23a7414-2096-3cc4-93df-1f9b8cdcc548'}})
+        axios.get('https://api.cnptia.embrapa.br/agritec/v1/zoneamento?idCultura=56&codigoIBGE=3109709', {headers: {'Authorization': 'Bearer f23a7414-2096-3cc4-93df-1f9b8cdcc548'}})
           .then(response => {
             this.setState({                        
                 zoneamento20: response.data.data,
             })
         })
-        axios.get('https://api.cnptia.embrapa.br/agritec/v1/zoneamento?idCultura=62&codigoIBGE=3109709&risco=30', {headers: {'Authorization': 'Bearer f23a7414-2096-3cc4-93df-1f9b8cdcc548'}})
+        axios.get('https://api.cnptia.embrapa.br/agritec/v1/zoneamento?idCultura=56&codigoIBGE=3109709&risco=30', {headers: {'Authorization': 'Bearer f23a7414-2096-3cc4-93df-1f9b8cdcc548'}})
           .then(response => {
             this.setState({                        
                 zoneamento30: response.data.data,
             })
         })
-        axios.get('https://api.cnptia.embrapa.br/agritec/v1/zoneamento?idCultura=62&codigoIBGE=3109709&risco=40', {headers: {'Authorization': 'Bearer f23a7414-2096-3cc4-93df-1f9b8cdcc548'}})
+        axios.get('https://api.cnptia.embrapa.br/agritec/v1/zoneamento?idCultura=56&codigoIBGE=3109709&risco=40', {headers: {'Authorization': 'Bearer f23a7414-2096-3cc4-93df-1f9b8cdcc548'}})
           .then(response => {
             this.setState({                        
                 zoneamento40: response.data.data,
@@ -89,21 +89,22 @@ export default class Texture extends Component{
                 if(this.state.zoneamento20[i].cultura != '' && this.state.zoneamento20[i].ciclo == 'GRUPO I' && this.state.zoneamento20[i].solo == 'ARENOSO'){
                     let mes = this.state.zoneamento20[i].mesIni - 1;
                     let dec = this.state.zoneamento20[i].diaIni;
-                    const dec01 = this.state.zoneamento[mes].dec01;                
-                    const dec02 = this.state.zoneamento[mes].dec02;
-                    const dec03 = this.state.zoneamento[mes].dec03;
+                    let newState = Object.assign({}, this.state);                   
                     if(dec == 1){
+                        newState.zoneamento[mes].dec01 = 20;
                         this.setState({                        
-                            [dec01]: 20,                        
+                            newState,                        
                         })
                     }
                     else if(dec == 11){
+                        newState.zoneamento[mes].dec02 = 20;
                         this.setState({                        
-                            [dec02]: 20,                      
+                            newState,                      
                         })
                     }else if(dec == 21){
+                        newState.zoneamento[mes].dec03 = 20;
                         this.setState({                        
-                            [dec03]: 20,                    
+                            newState,                    
                         })
                     }
                 }
@@ -114,21 +115,22 @@ export default class Texture extends Component{
                 if(this.state.zoneamento30[i].cultura != '' && this.state.zoneamento30[i].ciclo == 'GRUPO I' && this.state.zoneamento30[i].solo == 'ARENOSO'){
                     let mes = this.state.zoneamento30[i].mesIni - 1;
                     let dec = this.state.zoneamento30[i].diaIni;
-                    const dec01 = this.state.zoneamento[mes].dec01;                
-                    const dec02 = this.state.zoneamento[mes].dec02;
-                    const dec03 = this.state.zoneamento[mes].dec03;
+                    let newState = Object.assign({}, this.state);                    
                     if(dec == 1){
+                        newState.zoneamento[mes].dec01 = 30;
                         this.setState({                        
-                            [dec01]: 30,                        
+                            newState,                        
                         })
                     }
                     else if(dec == 11){
+                        newState.zoneamento[mes].dec02 = 30;
                         this.setState({                        
-                            [dec02]: 30,                      
+                            newState,                      
                         })
                     }else if(dec == 21){
+                        newState.zoneamento[mes].dec03 = 30;
                         this.setState({                        
-                            [dec03]: 30,                    
+                            newState,                    
                         })
                     }
                 }
@@ -139,21 +141,22 @@ export default class Texture extends Component{
                 if(this.state.zoneamento40[i].cultura != '' && this.state.zoneamento40[i].ciclo == 'GRUPO I' && this.state.zoneamento40[i].solo == 'ARENOSO'){
                     let mes = this.state.zoneamento40[i].mesIni - 1;
                     let dec = this.state.zoneamento40[i].diaIni;
-                    const dec01 = this.state.zoneamento[mes].dec01;                
-                    const dec02 = this.state.zoneamento[mes].dec02;
-                    const dec03 = this.state.zoneamento[mes].dec03;
+                    let newState = Object.assign({}, this.state);                    
                     if(dec == 1){
+                        newState.zoneamento[mes].dec01 = 40;
                         this.setState({                        
-                            [dec01]: 40,                        
+                            newState,                        
                         })
                     }
                     else if(dec == 11){
+                        newState.zoneamento[mes].dec02 = 40;
                         this.setState({                        
-                            [dec02]: 40,                      
+                            newState,                      
                         })
                     }else if(dec == 21){
+                        newState.zoneamento[mes].dec03 = 40;
                         this.setState({                        
-                            [dec03]: 40,                    
+                            newState,                    
                         })
                     }
                 }
@@ -195,28 +198,28 @@ export default class Texture extends Component{
                 corDec03 = "#a3a3a3";
             }
             return (                
-                    <Row style={{maxWidth: "300px", textAlign: "center", margin: "0px auto", borderLeft: "1px solid #0075a4", borderRight: "1px solid #0075a4"}}>
-                        <Col style={{padding: "0"}}> <div style={{width: "150px", margin: "5px auto", padding: "0 25px", textAlign: "left"}}>{data.mes}</div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{width: "30px", height: "30px", borderRadius: "50%", background: corDec01, margin: "5px auto"}}></div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{width: "30px", height: "30px", borderRadius: "50%", background: corDec02, margin: "5px auto"}}></div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{width: "30px", height: "30px", borderRadius: "50%", background: corDec03, margin: "5px auto"}}></div> </Col>
-                    </Row>                
+                <Row style={{maxWidth: "400px", textAlign: "center", margin: "0px auto"}}>
+                    <Col style={{padding: "0"}}> <div style={{width: "150px", margin: "5px auto", padding: "0 25px", textAlign: "left"}}>{data.mes}</div> </Col>
+                    <Col style={{padding: "0"}}> <div style={{width: "30px", height: "30px", borderRadius: "50%", background: corDec01, margin: "5px auto"}}></div> </Col>
+                    <Col style={{padding: "0"}}> <div style={{width: "30px", height: "30px", borderRadius: "50%", background: corDec02, margin: "5px auto"}}></div> </Col>
+                    <Col style={{padding: "0"}}> <div style={{width: "30px", height: "30px", borderRadius: "50%", background: corDec03, margin: "5px auto"}}></div> </Col>
+                </Row>                
             );
             
-        });//<h2>Zoneamento</h2> 
+        }); 
         return(
             <div className='content zoning'>
                                
-                    <Row style={{maxWidth: "300px", textAlign: "center", margin: "0px auto", background: "#0075a4", color: "#e5eff4"}}>
+                    <Row style={{maxWidth: "400px", textAlign: "center", margin: "0px auto", background: "#0075a4", color: "#e5eff4"}}>
                         <Col> CACHOEIRA DE MINAS - MG </Col>
                     </Row>
-                    <Row style={{maxWidth: "300px", textAlign: "center", margin: "0px auto", background: "#0075a4", color: "#e5eff4"}}>
-                        <Col> FEIJÃO </Col>
+                    <Row style={{maxWidth: "400px", textAlign: "center", margin: "0px auto", background: "#0075a4", color: "#e5eff4"}}>
+                        <Col> MILHO </Col>
                         <Col> GRUPO I </Col>
                         <Col> ARENOSO </Col>
                     </Row>
 
-                    <Row style={{maxWidth: "300px", textAlign: "center", margin: "0px auto", borderLeft: "1px solid #0075a4", borderRight: "1px solid #0075a4"}}>
+                    <Row style={{maxWidth: "400px", textAlign: "center", margin: "0px auto"}}>
                         <Col style={{padding: "0"}}> <div style={{width: "150px", padding: "5px 0"}}>mês/decênios</div> </Col>
                         <Col style={{padding: "0"}}> <div style={{width: "30px", height: "30px", borderRadius: "50%", margin: "5px auto"}}>1</div> </Col>
                         <Col style={{padding: "0"}}> <div style={{width: "30px", height: "30px", borderRadius: "50%", margin: "5px auto"}}>2</div> </Col>
@@ -225,25 +228,23 @@ export default class Texture extends Component{
 
                     {zoning}
 
-                    <Row style={{maxWidth: "300px", textAlign: "center", margin: "0px auto", borderLeft: "1px solid #0075a4", borderRight: "1px solid #0075a4"}}>
+                    <Row style={{maxWidth: "400px", textAlign: "center", margin: "0px auto"}}>
                         <br />
                     </Row>
-                    <Row style={{maxWidth: "300px", textAlign: "center", margin: "0px auto", borderLeft: "1px solid #0075a4", borderRight: "1px solid #0075a4"}}>
+                    <Row style={{maxWidth: "400px", textAlign: "center", margin: "0px auto"}}>
                         <Col style={{padding: "0"}}> <div style={{width: "150px", margin: "0px auto", padding: "0 10px", textAlign: "left"}}>Legenda</div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", margin: "0px auto"}}>20%</div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", margin: "0px auto"}}>30%</div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", margin: "0px auto"}}>40%</div> </Col>
+                        <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>20%</div> </Col>
+                        <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>30%</div> </Col>
+                        <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>40%</div> </Col>
+                        <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>nenhum</div> </Col>
                     </Row> 
-                    <Row style={{maxWidth: "300px", textAlign: "center", margin: "0px auto", borderLeft: "1px solid #0075a4", borderRight: "1px solid #0075a4"}}>
+                    <Row style={{maxWidth: "400px", textAlign: "center", margin: "0px auto"}}>
                         <Col style={{padding: "0"}}> <div style={{width: "150px", margin: "0px auto", padding: "0 15px", textAlign: "left"}}>risco até</div> </Col>
                         <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", background: "#05973f", margin: "0px auto"}}></div> </Col>
                         <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", background: "#f8bc82", margin: "0px auto"}}></div> </Col>
                         <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", background: "#f3661f", margin: "0px auto"}}></div> </Col>
-                    </Row> 
-                    <Row style={{maxWidth: "300px", textAlign: "center", margin: "0px auto", borderLeft: "1px solid #0075a4", borderRight: "1px solid #0075a4", borderBottom: "1px solid #0075a4"}}>
-                        <Col style={{padding: "0"}}> <div style={{width: "250px", margin: "0px auto", padding: "0 15px", textAlign: "left"}}>sem indicação de plantio</div> </Col>
                         <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", background: "#a3a3a3", margin: "0px auto"}}></div> </Col>
-                    </Row> 
+                    </Row>                    
             </div>
         );
     }

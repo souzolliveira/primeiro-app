@@ -8,15 +8,15 @@
   Background-tab #e5eff4
   Text-tab #3c4144
 */
-
+body{
+    background: #e5eff4;
+}
 #root {
   padding-top: 65px;
-  height: 100%;
   background: #e5eff4;
 }
 #root .content{
   width: 100%;
-  height: -webkit-fill-available;
   padding-bottom: 75px;
   background: #e5eff4;
   overflow-y: auto;
