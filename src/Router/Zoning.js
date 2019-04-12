@@ -210,10 +210,10 @@ export default class Texture extends Component{
         return(
             <div className='content zoning'>
                                
-                    <Row style={{maxWidth: "400px", textAlign: "center", margin: "0px auto", background: "#0075a4", color: "#e5eff4"}}>
+                    <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto", background: "#0075a4", color: "#e5eff4"}}>
                         <Col> CACHOEIRA DE MINAS - MG </Col>
                     </Row>
-                    <Row style={{maxWidth: "400px", textAlign: "center", margin: "0px auto", background: "#0075a4", color: "#e5eff4"}}>
+                    <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto", background: "#0075a4", color: "#e5eff4"}}>
                         <Col> MILHO </Col>
                         <Col> GRUPO I </Col>
                         <Col> ARENOSO </Col>
@@ -228,22 +228,23 @@ export default class Texture extends Component{
 
                     {zoning}
 
-                    <Row style={{maxWidth: "400px", textAlign: "center", margin: "0px auto"}}>
+                    <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto"}}>
                         <br />
                     </Row>
-                    <Row style={{maxWidth: "400px", textAlign: "center", margin: "0px auto"}}>
+                    <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto"}}>
                         <Col style={{padding: "0"}}> <div style={{width: "150px", margin: "0px auto", padding: "0 10px", textAlign: "left"}}>Legenda</div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>20%</div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>30%</div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>40%</div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>nenhum</div> </Col>
-                    </Row> 
-                    <Row style={{maxWidth: "400px", textAlign: "center", margin: "0px auto"}}>
-                        <Col style={{padding: "0"}}> <div style={{width: "150px", margin: "0px auto", padding: "0 15px", textAlign: "left"}}>risco até</div> </Col>
+
                         <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", background: "#05973f", margin: "0px auto"}}></div> </Col>
                         <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", background: "#f8bc82", margin: "0px auto"}}></div> </Col>
                         <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", background: "#f3661f", margin: "0px auto"}}></div> </Col>
                         <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", background: "#a3a3a3", margin: "0px auto"}}></div> </Col>
+                    </Row> 
+                    <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto"}}>
+                        <Col style={{padding: "0"}}> <div style={{width: "150px", margin: "0px auto", textAlign: "center"}}>risco até</div> </Col>
+                        <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>20%</div> </Col>
+                        <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>30%</div> </Col>
+                        <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>40%</div> </Col>
+                        <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>sem dados</div> </Col>
                     </Row>                    
             </div>
         );
