@@ -28,22 +28,23 @@ export default class App extends Component {
           <div>
             <ul className='ul-router'>
               <li>
-                <NavLink to="/"><FontAwesomeIcon icon="location-arrow" /> </NavLink>
+                <NavLink to="/Location" activeStyle={{color: "#fff"}}><FontAwesomeIcon icon="location-arrow" /> </NavLink>
               </li>
               <li>
-                <NavLink to="/Culture"><FontAwesomeIcon icon="seedling" /> </NavLink>
+                <NavLink to="/Culture" activeStyle={{color: "#fff"}}><FontAwesomeIcon icon="seedling" /> </NavLink>
               </li>
               <li>
-                <NavLink to="/Cycle"><FontAwesomeIcon icon="clock" /> </NavLink>
+                <NavLink to="/Cycle" activeStyle={{color: "#fff"}}><FontAwesomeIcon icon="clock" /> </NavLink>
               </li>
               <li>
-                <NavLink to="/Texture"><FontAwesomeIcon icon="shapes" /> </NavLink>
+                <NavLink to="/Texture" activeStyle={{color: "#fff"}}><FontAwesomeIcon icon="shapes" /> </NavLink>
               </li>
               <li>
-                <NavLink to="/Zoning"><FontAwesomeIcon icon="list" /> </NavLink>
+                <NavLink to="/Zoning" activeStyle={{color: "#fff"}}><FontAwesomeIcon icon="list" /> </NavLink>
               </li>
             </ul>
             <Route exact path="/" component={Location} />
+            <Route path="/Location" component={Location} />
             <Route path="/Culture" component={Culture} />
             <Route path="/Cycle" component={Cycle} />
             <Route path="/Texture" component={Texture} />
