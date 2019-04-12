@@ -36,7 +36,7 @@ export default class Texture extends Component{
         return(
             <div className='content'>
                 <h2>Textura</h2>
-                <p> selecione a textura do solo da propriedade </p>
+                <p> selecione a textura do solo do plantio </p>
                 <div className='options'>
                     {optionItems}
                 </div>

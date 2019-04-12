@@ -40,7 +40,7 @@ export default class Cycle extends Component{
         return(
             <div className='content'>
                 <h2>Ciclo</h2>
-                <p> selecione o ciclo da plantação </p>
+                <p> selecione o ciclo da cultura </p>
                 <div className='options'>
                     {optionItems}
                 </div>
