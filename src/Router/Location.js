@@ -155,25 +155,39 @@ class Location extends Component{
         }
         if(prevState.geolocal !== this.state.geolocal && this.state.geolocal !== ''){
             const localSplit = this.state.geolocal.split(',');
-            this.setState({
-                cidade: localSplit[2],
-                cep: localSplit[3],
-            });            
+            for(let i = 0; i < localSplit.length; i++){
+                const slice = trim(localSplit[i]);
+                if(slice.length == 9){
+                    const slice01 = slice.split('-');
+                    if(slice01.length == 2){
+                        if(slice01[0].length == 5 && slice01[1].length == 3){
+                            this.setState({
+                                cep: slice,
+                            }); 
+                        }else{
+                            //TEM QUE DAR UM ERRO
+                        }
+                    }
+                    else{
+                        continue;
+                    }
+                }else{
+                    continue;
+                }
+            }                       
         }
         if(prevState.cep !== this.state.cep && this.state.cep !== ''){
-            const newCep = trim(this.state.cep);
-            axios.get('https://viacep.com.br/ws/'+newCep+'/json/')
+            axios.get('https://viacep.com.br/ws/'+this.state.cep+'/json/')
                 .then(response => {
                     this.setState({
-                        cep: newCep,
-                        codIBGE: response.data.ibge,                        
+                        codIBGE: response.data.ibge,
+                        cidade: response.data.localidade+"-"+response.data.uf,
                     })         
                 })
         }
     }
     
     render(){
-        //console.log(this.state.municipio.codigoIBGE);
         const municipios = this.state.municipios;
         const optionItems = municipios.map((data) =>
             <option value={[data.codigoIBGE, data.nome, data.uf]}>{data.nome}</option>
