@@ -28,19 +28,34 @@ export default class App extends Component {
           <div>
             <ul className='ul-router'>
               <li>
-                <NavLink to="/Location" activeStyle={{color: "#fff"}}><FontAwesomeIcon icon="location-arrow" /> </NavLink>
+                <NavLink to="/Location" activeStyle={{color: "#fff"}}>
+                  <FontAwesomeIcon icon="location-arrow" /> 
+                  <label>Localização</label>
+                </NavLink>
               </li>
               <li>
-                <NavLink to="/Culture" activeStyle={{color: "#fff"}}><FontAwesomeIcon icon="seedling" /> </NavLink>
+                <NavLink to="/Culture" activeStyle={{color: "#fff"}}>
+                  <FontAwesomeIcon icon="seedling" /> 
+                  <label>Culturas</label>
+                </NavLink>
               </li>
               <li>
-                <NavLink to="/Cycle" activeStyle={{color: "#fff"}}><FontAwesomeIcon icon="clock" /> </NavLink>
+                <NavLink to="/Cycle" activeStyle={{color: "#fff"}}>
+                  <FontAwesomeIcon icon="clock" /> 
+                  <label>Ciclo</label>
+                </NavLink>
               </li>
               <li>
-                <NavLink to="/Texture" activeStyle={{color: "#fff"}}><FontAwesomeIcon icon="shapes" /> </NavLink>
+                <NavLink to="/Texture" activeStyle={{color: "#fff"}}>
+                  <FontAwesomeIcon icon="shapes" /> 
+                  <label>Textura</label>
+                </NavLink>
               </li>
               <li>
-                <NavLink to="/Zoning" activeStyle={{color: "#fff"}}><FontAwesomeIcon icon="list" /> </NavLink>
+                <NavLink to="/Zoning" activeStyle={{color: "#fff"}}>
+                  <FontAwesomeIcon icon="list" />
+                  <label>Zoneamento</label>
+                </NavLink>
               </li>
             </ul>
             <Route exact path="/" component={Location} />
