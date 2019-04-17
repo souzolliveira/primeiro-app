@@ -21,18 +21,21 @@ export default class Header extends Component{
             showAbout: false,
         };       
     }
+    /*
+    <img
+        alt=""
+        src="{}"
+        width="30"
+        height="30"
+        className="d-inline-block align-top"
+    />
+    */
     render(){
         return(
             <div>    
                 <Navbar collapseOnSelect expand="lg" fixed="top">
-                    <Navbar.Brand href="#home">
-                        <img
-                            alt=""
-                            src="{logo}"
-                            width="30"
-                            height="30"
-                            className="d-inline-block align-top"
-                        />
+                    <Navbar.Brand>
+                        
                         {' ZARC'}
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
