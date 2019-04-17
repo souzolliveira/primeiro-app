@@ -4,7 +4,12 @@ import axios from 'axios';
 export default class Culture extends Component{
     constructor(){
         super();
+
+        this.setCulture = this.setCulture.bind(this);
+
         this.state = {
+            culturaID: 0,
+            culturaNOME: '',
             culturas: [
                 {
                     id: 0,
@@ -23,7 +28,14 @@ export default class Culture extends Component{
           })
         })
     }
+    setCulture(event){
+        this.setState({
+            culturaID: event.target.id,
+            culturaNOME: event.target.value,
+        })
+    }
     render(){
+        //console.log(this.state.culturaID + ': ' + this.state.culturaNOME );
         let cult = this.state.culturas;
         let optionItems = cult.map((data) =>{
             if(data.id != 0){
@@ -31,7 +43,7 @@ export default class Culture extends Component{
                     <div className="container">
                         <ul className="list">
                             <li className="list__item">
-                                <input type="radio" className="radio-btn" name="choice" id={data.id} />
+                                <input type="radio" className="radio-btn" name="choice" id={data.id} value={data.cultura}/>
                                 <label for={data.id} className="label">{data.cultura}</label>
                             </li>
                         </ul>
@@ -39,12 +51,11 @@ export default class Culture extends Component{
                 );
             }
         });
-
         return (
             <div className='content'>
                 <h2>Cultura</h2>
                 <p> selecione a cultura desejada </p>
-                <div className='options' >                
+                <div className='options' onChange={this.setCulture}>                
                     {optionItems}
                 </div>
             </div>

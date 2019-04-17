@@ -4,7 +4,10 @@ export default class Texture extends Component{
     constructor(){
         super();
         
+        this.setTexture = this.setTexture.bind(this);
+
         this.state = {
+            textura: '',
             texturas: [
                 {
                     id: 1,
@@ -21,13 +24,19 @@ export default class Texture extends Component{
             ]
         }
     }
+    setTexture(event){
+        this.setState({
+            textura: event.target.value,
+        })
+    }
     render(){
+        console.log(this.state.textura);
         let text = this.state.texturas;
         let optionItems = text.map((data) =>
             <div className="container">
                 <ul className="list">
                     <li className="list__item">
-                        <input type="radio" className="radio-btn" name="choice" id={data.id} />
+                        <input type="radio" className="radio-btn" name="choice" id={data.id} value={data.textura}/>
                         <label for={data.id} className="label">{data.textura}</label>
                     </li>
                 </ul>
@@ -37,7 +46,7 @@ export default class Texture extends Component{
             <div className='content'>
                 <h2>Textura</h2>
                 <p> selecione a textura do solo do plantio </p>
-                <div className='options'>
+                <div className='options' onChange={this.setTexture}>
                     {optionItems}
                 </div>
             </div>
