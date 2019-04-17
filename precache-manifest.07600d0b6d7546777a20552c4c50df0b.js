@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/primeiro-app/static/js/runtime~main.e345aeee.js"
   },
   {
-    "revision": "c88f5f2001f153bbdefa",
-    "url": "/primeiro-app/static/js/main.c88f5f20.chunk.js"
+    "revision": "e325de8c57b1a0f9acaa",
+    "url": "/primeiro-app/static/js/main.e325de8c.chunk.js"
   },
   {
     "revision": "0bd1444a0a067897aac6",
     "url": "/primeiro-app/static/js/1.0bd1444a.chunk.js"
   },
   {
-    "revision": "c88f5f2001f153bbdefa",
+    "revision": "e325de8c57b1a0f9acaa",
     "url": "/primeiro-app/static/css/main.468213d3.chunk.css"
   },
   {
-    "revision": "3d26904d09dc0ad08c9eccd68ded0e77",
+    "revision": "1943d5351fd9b5c88acc35e76544bcb5",
     "url": "/primeiro-app/index.html"
   }
 ];
