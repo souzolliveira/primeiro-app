@@ -2,7 +2,7 @@
 
 import React, {Component} from "react";
 import "./Header.css";
-import {Navbar, Nav, Modal} from "react-bootstrap";
+import {Navbar, Nav, Modal, Row} from "react-bootstrap";
 //import {logo} from "logo.svg";
 
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -53,7 +53,27 @@ export default class Header extends Component{
                         <Modal.Title>Dicionário</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>                 
-                            
+                        <Row>
+                            <label>GRUPO I: </label>
+                        </Row>
+                        <Row>
+                            <label>GRUPO II: </label>
+                        </Row>
+                        <Row>
+                            <label>GRUPO III: </label>
+                        </Row>
+                        <Row>
+                            <label>PERENE: </label>
+                        </Row>
+                        <Row>
+                            <label>ARENOSO: </label>
+                        </Row>
+                        <Row>
+                            <label>ARGILOSO: </label>
+                        </Row>
+                        <Row>
+                            <label>TEXTURA MÉDIA: </label>
+                        </Row>
                     </Modal.Body>
                 </Modal>
                 <Modal show={this.state.showHistory} onHide={() => this.setState({showHistory: false})} centered>
