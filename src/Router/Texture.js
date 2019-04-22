@@ -30,7 +30,6 @@ export default class Texture extends Component{
         })
     }
     render(){
-        console.log(this.state.textura);
         let text = this.state.texturas;
         let optionItems = text.map((data) =>
             <div className="container">

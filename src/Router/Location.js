@@ -181,7 +181,7 @@ class Location extends Component{
                 .then(response => {
                     this.setState({
                         codIBGE: response.data.ibge,
-                        cidade: response.data.localidade+"-"+response.data.uf,
+                        cidade: response.data.localidade+" - "+response.data.uf,
                     })         
                 })
         }
