@@ -8,6 +8,19 @@ export default class Texture extends Component{
     constructor(props, context){
         super(props, context);
         this.state = {
+
+            municipioNome: '', 
+            codigoIBGE: '',
+
+            culturaNome: '', 
+            culturaID: '',
+
+            cicloNome: '', 
+            cicloID: '',             
+
+            texturaNome: '',
+            texturaID: '',
+
             zoneamento: [                
                 {mes: "Janeiro", dec01: 0, dec02: 0, dec03: 0},
                 {mes: "Fevereiro", dec01: 0, dec02: 0, dec03: 0},
@@ -165,7 +178,9 @@ export default class Texture extends Component{
     }
     
     render(){
+        
         const zoneamento = this.state.zoneamento;
+        //console.log(zoneamento);
         const zoning = zoneamento.map((data) => {
             let corDec01 = "";
             let corDec02 = "";

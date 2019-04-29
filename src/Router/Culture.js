@@ -9,7 +9,7 @@ export default class Culture extends Component{
 
         this.state = {
             culturaID: 0,
-            culturaNOME: '',
+            culturaNome: '',
             culturas: [
                 {
                     id: 0,
@@ -31,11 +31,11 @@ export default class Culture extends Component{
     setCulture(event){
         this.setState({
             culturaID: event.target.id,
-            culturaNOME: event.target.value,
+            culturaNome: event.target.value,
         })
     }
     render(){
-        //console.log(this.state.culturaID + ': ' + this.state.culturaNOME );
+        //console.log(this.state.culturaID + ': ' + this.state.culturaNome );
         let cult = this.state.culturas;
         let optionItems = cult.map((data) =>{
             if(data.id != 0){

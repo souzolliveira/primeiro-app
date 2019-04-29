@@ -7,7 +7,8 @@ export default class Texture extends Component{
         this.setTexture = this.setTexture.bind(this);
 
         this.state = {
-            textura: '',
+            texturaNome: '',
+            texturaID: '',
             texturas: [
                 {
                     id: 1,

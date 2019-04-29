@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import {NavLink} from "react-router-dom";
 import "./App.css";
 
+import Header from './Header';
 import Location from './Router/Location';
 import Culture from './Router/Culture';
 import Cycle from './Router/Cycle';
@@ -24,6 +25,8 @@ library.add(faClock);
 export default class App extends Component {
   render(){
     return (
+      <div>
+        <Header />
         <Router>
           <div>
             <ul className='ul-router'>
@@ -66,6 +69,7 @@ export default class App extends Component {
             <Route path="/Zoning" component={Zoning} />
           </div>
         </Router>
+      </div>
     );
   }
 }
