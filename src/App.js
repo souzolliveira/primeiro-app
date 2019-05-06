@@ -12,8 +12,7 @@ import Cycle from './Router/Cycle';
 import Texture from './Router/Texture';
 import Zoning from './Router/Zoning';
 
-import { Provider } from 'react-redux';
-import { Store } from './store';
+import { GlobalStateProvider } from './state';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -28,51 +27,51 @@ library.add(faClock);
 export default class App extends Component {
   render(){
     return (
-      <Provider store={Store}>
-        <Header />
-        <Router>
-          <div>
-            <ul className='ul-router'>
-              <li>
-                <NavLink to="/Location" activeStyle={{color: "#fff"}}>
-                  <FontAwesomeIcon icon="location-arrow" /> 
-                  <label>Localização</label>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/Culture" activeStyle={{color: "#fff"}}>
-                  <FontAwesomeIcon icon="seedling" /> 
-                  <label>Culturas</label>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/Cycle" activeStyle={{color: "#fff"}}>
-                  <FontAwesomeIcon icon="clock" /> 
-                  <label>Ciclo</label>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/Texture" activeStyle={{color: "#fff"}}>
-                  <FontAwesomeIcon icon="shapes" /> 
-                  <label>Textura</label>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/Zoning" activeStyle={{color: "#fff"}}>
-                  <FontAwesomeIcon icon="list" />
-                  <label>Zoneamento</label>
-                </NavLink>
-              </li>
-            </ul>
-            <Route exact path="/" component={Location} />
-            <Route path="/Location" component={Location} />
-            <Route path="/Culture" component={Culture} />
-            <Route path="/Cycle" component={Cycle} />
-            <Route path="/Texture" component={Texture} />
-            <Route path="/Zoning" component={Zoning} />
-          </div>
+      <React.StrictMode>
+        <GlobalStateProvider>
+          <Header />
+          <Router>
+              <ul className='ul-router'>
+                <li>
+                  <NavLink to="/Location" activeStyle={{color: "#fff"}}>
+                    <FontAwesomeIcon icon="location-arrow" /> 
+                    <label>Localização</label>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/Culture" activeStyle={{color: "#fff"}}>
+                    <FontAwesomeIcon icon="seedling" /> 
+                    <label>Culturas</label>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/Cycle" activeStyle={{color: "#fff"}}>
+                    <FontAwesomeIcon icon="clock" /> 
+                    <label>Ciclo</label>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/Texture" activeStyle={{color: "#fff"}}>
+                    <FontAwesomeIcon icon="shapes" /> 
+                    <label>Textura</label>
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/Zoning" activeStyle={{color: "#fff"}}>
+                    <FontAwesomeIcon icon="list" />
+                    <label>Zoneamento</label>
+                  </NavLink>
+                </li>
+              </ul>
+              <Route exact path="/" component={Location} />
+              <Route path="/Location" component={Location} />
+              <Route path="/Culture" component={Culture} />
+              <Route path="/Cycle" component={Cycle} />
+              <Route path="/Texture" component={Texture} />
+              <Route path="/Zoning" component={Zoning} />
         </Router>
-      </Provider>
+      </GlobalStateProvider>
+  </React.StrictMode>
     );
   }
 }

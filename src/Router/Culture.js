@@ -1,40 +1,26 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-export default class Culture extends Component{
-    constructor(){
-        super();
+import { dispatch, useGlobalState } from '../state';
 
-        this.setCulture = this.setCulture.bind(this);
+const setCultura = (event) => dispatch({
+    culturaNome: event.target.value,
+    culturaID: event.target.id,
+    type: 'setCultura',
+});
+const addCultura = (culturas) => dispatch({
+    culturas: culturas,
+    type: 'addCultura',
+});
 
-        this.state = {
-            culturaID: 0,
-            culturaNome: '',
-            culturas: [
-                {
-                    id: 0,
-                    cultura: "",
-                },
-            ]
-        }
-    }
-    componentDidMount(){
+export default function Culture(){
+    const componentDidMount = () => {
         axios.get('https://api.cnptia.embrapa.br/agritec/v1/culturas', {headers: {'Authorization': 'Bearer f23a7414-2096-3cc4-93df-1f9b8cdcc548'}})
           .then(response => {
-            this.setState(()=>{
-                return {                        
-                    culturas: response.data.data,
-                }
-          })
+            addCultura(response.data.data);
         })
     }
-    setCulture(event){
-        this.setState({
-            culturaID: event.target.id,
-            culturaNome: event.target.value,
-        })
-    }
-    render(){
+    const render = () =>{
         //console.log(this.state.culturaID + ': ' + this.state.culturaNome );
         let cult = this.state.culturas;
         let optionItems = cult.map((data) =>{
@@ -55,7 +41,7 @@ export default class Culture extends Component{
             <div className='content'>
                 <h2>Cultura</h2>
                 <p> selecione a cultura desejada </p>
-                <div className='options' onChange={this.setCulture}>                
+                <div className='options' onChange={setCultura}>            
                     {optionItems}
                 </div>
             </div>
