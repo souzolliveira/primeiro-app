@@ -5,6 +5,7 @@ type Action =
   |  { type: 'addMunicipio'; favoritos: [{ codigoIBGE: string, nome: string, uf: string}]}
   |  { type: 'setMunicipio'; municipioNome: string; codigoIBGE: string}
   |  { type: 'setCultura'; culturaNome: string; culturaID: string}
+  |  { type: 'addCultura'; culturas: [{ id: string, cultura: string}]}
   |  { type: 'setCiclo'; cicloNome: string; cicloID: string}
   |  { type: 'setTextura'; texturaNome: string; texturaID: string}
 
@@ -30,6 +31,10 @@ type Action =
             culturaNome: action.culturaNome,
             culturaID: action.culturaID,
         };
+        case 'addCultura': return {
+          ...state,
+          culturas: action.culturas,
+      };
         case 'setCiclo': return {
             ...state,
             cicloNome: action.cicloNome,
@@ -58,6 +63,11 @@ type Action =
 
       culturaNome: '',
       culturaID: '',
+
+      culturas: [{
+        id: '',
+        cultura: '',
+      }],
 
       cicloNome: '',
       cicloID: '',
