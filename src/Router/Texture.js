@@ -1,55 +1,55 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-export default class Texture extends Component{
-    constructor(){
-        super();
-        
-        this.setTexture = this.setTexture.bind(this);
+import { dispatch, useGlobalState } from '../state';
 
-        this.state = {
-            texturaNome: '',
-            texturaID: '',
-            texturas: [
-                {
-                    id: 1,
-                    textura: 'ARENOSO',
-                },
-                {
-                    id: 2,
-                    textura: 'ARGILOSO',
-                },
-                {
-                    id: 3,
-                    textura: 'TEXTURA MÉDIA',
-                },
-            ]
-        }
+const setTextura = (event) => dispatch({
+    texturaNome: event.target.value,
+    texturaID: event.target.id,
+    type: 'setTextura',
+});
+
+export default function Texture(){
+    const [texturaID] = useGlobalState('texturaID');
+    const checked = [0, 0, 0];
+    if(texturaID == 1){
+        checked[0] = 1;
     }
-    setTexture(event){
-        this.setState({
-            textura: event.target.value,
-        })
+    else if(texturaID == 2){
+        checked[1] = 1;
     }
-    render(){
-        let text = this.state.texturas;
-        let optionItems = text.map((data) =>
-            <div className="container">
-                <ul className="list">
-                    <li className="list__item">
-                        <input type="radio" className="radio-btn" name="choice" id={data.id} value={data.textura}/>
-                        <label for={data.id} className="label">{data.textura}</label>
-                    </li>
-                </ul>
-            </div>
-        );
-        return(
-            <div className='content'>
-                <h2>Textura</h2>
-                <p> selecione a textura do solo do plantio </p>
-                <div className='options' onChange={this.setTexture}>
-                    {optionItems}
+    else if(texturaID == 3){
+        checked[2] = 1;
+    }
+    return(
+        <div className='content'>
+            <h2>Textura</h2>
+            <p> selecione a textura do solo do plantio </p>
+            <div className='options' onChange={setTextura}>
+                <div className="container">
+                    <ul className="list">
+                        <li className="list__item">
+                            <input type="radio" className="radio-btn" name="choice" id="1" value="ARENOSO" checked={checked[0]}/>
+                            <label for="1" className="label">ARENOSO</label>
+                        </li>
+                    </ul>
+                </div>
+                <div className="container">
+                    <ul className="list">
+                        <li className="list__item">
+                            <input type="radio" className="radio-btn" name="choice" id="2" value="ARGILOSO" checked={checked[1]}/>
+                            <label for="2" className="label">ARGILOSO</label>
+                        </li>
+                    </ul>
+                </div>
+                <div className="container">
+                    <ul className="list">
+                        <li className="list__item">
+                            <input type="radio" className="radio-btn" name="choice" id="3" value="TEXTURA MÉDIA" checked={checked[2]}/>
+                            <label for="3" className="label">TEXTURA MÉDIA</label>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }

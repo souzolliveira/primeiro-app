@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 import { dispatch, useGlobalState } from '../state';
 
@@ -9,7 +9,6 @@ const setCiclo = (event) => dispatch({
 });
 
 export default function Cycle(){
-    const [cicloNome] = useGlobalState('cicloNome');
     const [cicloID] = useGlobalState('cicloID');
     const checked = [0, 0, 0];
     if(cicloID == 1){
@@ -51,7 +50,6 @@ export default function Cycle(){
                     </ul>
                 </div>
             </div>
-            <h2>{cicloNome}</h2>
         </div>
     );
 }
