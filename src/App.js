@@ -12,6 +12,9 @@ import Cycle from './Router/Cycle';
 import Texture from './Router/Texture';
 import Zoning from './Router/Zoning';
 
+import { Provider } from 'react-redux';
+import { Store } from './store';
+
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationArrow, faSeedling, faList, faShapes, faClock } from '@fortawesome/free-solid-svg-icons';
@@ -25,7 +28,7 @@ library.add(faClock);
 export default class App extends Component {
   render(){
     return (
-      <div>
+      <Provider store={Store}>
         <Header />
         <Router>
           <div>
@@ -69,7 +72,7 @@ export default class App extends Component {
             <Route path="/Zoning" component={Zoning} />
           </div>
         </Router>
-      </div>
+      </Provider>
     );
   }
 }

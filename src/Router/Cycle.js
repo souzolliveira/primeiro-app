@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 
-export default class Cycle extends Component{
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setCiclo } from '../actions';
+
+class Cycle extends Component{
     constructor(){
         super();
         
@@ -29,9 +33,14 @@ export default class Cycle extends Component{
         this.setState({
             cicloNome: event.target.value,
             cicloID: event.target.id,
-        })
+        });
+        setCiclo(this.state.cicloNome, this.state.cicloID);
     }
     render(){
+        const {
+            cicloNome,            
+          } = this.props;
+        console.log(cicloNome);
         let text = this.state.ciclos;
         let optionItems = text.map((data) =>
             <div className="container">
@@ -45,7 +54,7 @@ export default class Cycle extends Component{
         );
         return(
             <div className='content'>
-                <h2>Ciclo</h2>
+                <h2>Ciclo {cicloNome}</h2>
                 <p> selecione o ciclo da cultura </p>
                 <div className='options' onChange={this.setCycle}>
                     {optionItems}
@@ -54,3 +63,11 @@ export default class Cycle extends Component{
         );
     }
 }
+const mapStateToProps = store => ({
+    cicloNome: store.clickState.cicloNome,
+    cicloID: store.clickState.cicloID,
+  });
+  const mapDispatchToProps = dispatch =>
+    bindActionCreators({ setCiclo }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cycle);
