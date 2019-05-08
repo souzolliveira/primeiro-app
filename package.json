@@ -16,6 +16,7 @@
     "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.7.0",
     "react-geolocated": "^2.4.1",
+    "react-hooks-global-state": "^0.9.0",
     "react-redux": "^7.0.3",
     "react-router-dom": "^5.0.0",
     "react-scripts": "^3.0.0",
