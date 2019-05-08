@@ -7,7 +7,6 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import trim from 'trim';
-
 import {GeolocatedProps, geolocated} from 'react-geolocated';
 
 import './Location.css';
@@ -16,10 +15,35 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
+import { dispatch, useGlobalState } from '../state';
+
 library.add(faPlus)
 library.add(faMapMarkerAlt)
 
-class Location extends Component{
+const setMunicipio = (municipioNome, municipioIBGE) => dispatch({
+    municipioNome: municipioNome,
+    municipioIBGE: municipioIBGE,
+    type: 'setMunicipio',
+});
+const addMunicipio = (favoritos) => dispatch({
+    favoritos: favoritos,
+    type: 'addMunicipio',
+});
+
+const count = () => dispatch({
+    type: 'count',
+});
+
+function Location(){
+    const [ favoritos ] = useGlobalState('favoritos');
+    const [ count ] = useGlobalState('count');
+    //console.log(count);
+    return (
+        <Location2 favoritos={favoritos} count={count}/>
+    )
+}
+
+class Location2 extends Component{
     constructor(props, context) {
         super(props, context);
     
@@ -71,33 +95,53 @@ class Location extends Component{
     handleShow() {this.setState({ show: true });}
     handleSave() {
         this.setState({ show: false });
-
-        const favoritos = this.state.favoritos.slice(0, this.state.numChildren + 1);
-        if(this.state.numChildren == 0){
+        if(this.props.count > this.state.numChildren){
+            const fav = this.props.favoritos;
+            const fav2 = fav.concat([{codigoIBGE: this.state.newFav.codigoIBGE, nome: this.state.newFav.nome, uf: this.state.newFav.uf}]);
+            addMunicipio(fav2);
             this.setState({
-                favoritos: ([
-                    { 
-                        codigoIBGE: this.state.newFav.codigoIBGE, 
-                        nome: this.state.newFav.nome,
-                        uf: this.state.newFav.uf,
-                    }
-                ]),
-                numChildren: this.state.numChildren + 1,
-            });
+                numChildren: this.props.count + 1,
+                favoritos: fav2,
+            })
+            count();
+        }else{
+            if(this.state.numChildren == 0){
+                const fav = [{codigoIBGE: this.state.newFav.codigoIBGE, nome: this.state.newFav.nome, uf: this.state.newFav.uf}];
+                addMunicipio(fav);
+            }
+            else{
+                const fav = this.state.favoritos;
+                const fav2 = fav.concat([{codigoIBGE: this.state.newFav.codigoIBGE, nome: this.state.newFav.nome, uf: this.state.newFav.uf}]);
+                addMunicipio(fav2);
+            }
+            const favoritos = this.state.favoritos.slice(0, this.state.numChildren + 1);
+            if(this.state.numChildren == 0){
+                this.setState({
+                    favoritos: ([
+                        { 
+                            codigoIBGE: this.state.newFav.codigoIBGE, 
+                            nome: this.state.newFav.nome,
+                            uf: this.state.newFav.uf,
+                        }
+                    ]),
+                    numChildren: this.state.numChildren + 1,
+                    
+                });  
+            }
+            else{
+                this.setState({
+                    favoritos: favoritos.concat([
+                        { 
+                            codigoIBGE: this.state.newFav.codigoIBGE, 
+                            nome: this.state.newFav.nome,
+                            uf: this.state.newFav.uf,
+                        }
+                    ]),
+                    numChildren: this.state.numChildren + 1,
+                });
+            }
+            count();
         }
-        else{
-            this.setState({
-                favoritos: favoritos.concat([
-                    { 
-                        codigoIBGE: this.state.newFav.codigoIBGE, 
-                        nome: this.state.newFav.nome,
-                        uf: this.state.newFav.uf,
-                    }
-                ]),
-                numChildren: this.state.numChildren + 1,
-            });
-        }
-
     }
     getUF(event){ this.setState({ uf: event.target.value }); }
     getMunicipio(event){        
@@ -132,9 +176,10 @@ class Location extends Component{
                 }
             ),            
         });
+        setMunicipio(this.state.municipio.nome, this.state.municipio.codigoIBGE);
     }
 
-    componentDidUpdate(prevProps, prevState){        
+    componentDidUpdate(prevProps, prevState){
         if(prevState.uf !== this.state.uf){
             axios.get('https://api.cnptia.embrapa.br/agritec/v1/municipios?uf='+this.state.uf+'', {headers: {'Authorization': 'Bearer f23a7414-2096-3cc4-93df-1f9b8cdcc548'}})
                 .then
@@ -185,17 +230,23 @@ class Location extends Component{
                     })         
                 })
         }
-    }
-    
+    }    
     render(){
         const municipios = this.state.municipios;
         const optionItems = municipios.map((data) =>
             <option value={[data.codigoIBGE, data.nome, data.uf]}>{data.nome}</option>
         );
-        const favoritos = this.state.favoritos;
+
+        const favoritos = this.props.favoritos;
+        const count = this.props.count;
+
+        /*console.log(favoritos);
+        console.log(count);        
+        console.log(this.state.favoritos);
+        console.log(this.state.numChildren);*/
 
         const favs = favoritos.map((data) => {
-            if(this.state.numChildren > 0){
+            if(count > 0){
                 return (
                     <LocationComponent 
                         codigo={data.codigoIBGE} 
@@ -321,4 +372,4 @@ const LocationComponent = props =>
             </li>
         </ul>
     </div>;
-export default geolocated()(Location);
+export default Location;

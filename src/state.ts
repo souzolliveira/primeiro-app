@@ -1,4 +1,5 @@
 import {createStore} from 'react-hooks-global-state';
+import { statement } from '@babel/template';
 
 type Action = 
   |  { type: 'setGeolocation'; geolocationNome: string; geolocationIBGE: string}
@@ -8,6 +9,7 @@ type Action =
   |  { type: 'addCultura'; culturas: [{ id: string, cultura: string}]}
   |  { type: 'setCiclo'; cicloNome: string; cicloID: string}
   |  { type: 'setTextura'; texturaNome: string; texturaID: string}
+  |  { type: 'count'; count: number}
 
   export const { GlobalStateProvider, dispatch, useGlobalState } = createStore(
     (state, action: Action) => {
@@ -20,6 +22,10 @@ type Action =
         case 'addMunicipio': return {
           ...state,
           favoritos: action.favoritos,
+        };        
+        case 'count': return {
+          ...state,
+          count: state.count + 1,
         };
         case 'setMunicipio': return {
             ...state,
@@ -57,6 +63,7 @@ type Action =
         nome: '', 
         uf: ''
       }],
+      count: 0,
 
       municipioNome: '',
       codigoIBGE: '',
