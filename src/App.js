@@ -41,7 +41,7 @@ export default class App extends Component {
                 <li>
                   <NavLink to="/Culture" activeStyle={{color: "#fff"}}>
                     <FontAwesomeIcon icon="seedling" /> 
-                    <label>Culturas</label>
+                    <label>Cultura</label>
                   </NavLink>
                 </li>
                 <li>
@@ -53,7 +53,7 @@ export default class App extends Component {
                 <li>
                   <NavLink to="/Texture" activeStyle={{color: "#fff"}}>
                     <FontAwesomeIcon icon="shapes" /> 
-                    <label>Textura</label>
+                    <label>Solo</label>
                   </NavLink>
                 </li>
                 <li>

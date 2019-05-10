@@ -22,7 +22,7 @@ export default function Texture(){
     }
     return(
         <div className='content'>
-            <h2>Textura</h2>
+            <h2>Solo</h2>
             <p> selecione a textura do solo do plantio </p>
             <div className='options' onChange={setTextura}>
                 <div className="container">
