@@ -20,16 +20,16 @@ export default function Culture(){
             addCultura(response.data.data);
         })
     });
-    const cult = useGlobalState('culturas');
-    const culturaID = useGlobalState('culturaID');
+    const [cult] = useGlobalState('culturas');
+    const [culturaID] = useGlobalState('culturaID');
 
-    let optionItems = cult[0].map((data) =>{
+    let optionItems = cult.map((data) =>{
         if(data.id != 0){
             return(
                 <div className="container">
                     <ul className="list">
                         <li className="list__item">
-                            <input type="radio" className="radio-btn" name="choice" id={data.id} value={data.cultura} checked={culturaID[0] == data.id}/>
+                            <input type="radio" className="radio-btn" name="choice" id={data.id} value={data.cultura} checked={culturaID == data.id}/>
                             <label for={data.id} className="label">{data.cultura}</label>
                         </li>
                     </ul>

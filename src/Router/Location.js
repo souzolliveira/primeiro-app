@@ -7,18 +7,16 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import trim from 'trim';
-import {GeolocatedProps, geolocated} from 'react-geolocated';
 
 import './Location.css';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { dispatch, useGlobalState } from '../state';
 
 library.add(faPlus)
-library.add(faMapMarkerAlt)
 
 const setMunicipio = (municipioNome, municipioUF, codigoIBGE) => dispatch({
     municipioNome: municipioNome,
@@ -35,15 +33,16 @@ const count = () => dispatch({
     type: 'count',
 });
 
-function Location(){
+export default function Location(){
     const [ favoritos ] = useGlobalState('favoritos');
     const [ count ] = useGlobalState('count');
+    const [ codigoIBGE ] = useGlobalState('codigoIBGE');
     return (
-        <Location2 favoritos={favoritos} count={count}/>
+        <Localizacao favoritos={favoritos} count={count} codigoIBGE={codigoIBGE}/>
     )
 }
 
-class Location2 extends Component{
+class Localizacao extends Component{
     constructor(props, context) {
         super(props, context);
     
@@ -53,7 +52,6 @@ class Location2 extends Component{
 
         this.getUF = this.getUF.bind(this);
         this.getMunicipio = this.getMunicipio.bind(this);
-        this.getGeolocation = this.getGeolocation.bind(this);
 
         this.setMunicipio = this.setMunicipio.bind(this);
 
@@ -157,14 +155,6 @@ class Location2 extends Component{
         });
     }
 
-    getGeolocation(event){
-        event.preventDefault();
-        this.setState({
-            latitude: event.target.latitude.value,
-            longitude: event.target.longitude.value,
-        });
-    }
-
     setMunicipio(event){
         const array = event.target.value.split(',');        
         this.setState({
@@ -189,47 +179,6 @@ class Location2 extends Component{
                         })        
                     })
         }
-        if(prevState.latitude !== this.state.latitude && this.state.latitude !== '' && prevState.longitude !== this.state.longitude && this.state.longitude !== ''){
-            axios.get('https://api.opencagedata.com/geocode/v1/json?q='+this.state.latitude+'+'+this.state.longitude+'&key=8880e42806424cd7b08aa83ee91fe733')
-            .then(response => {
-                this.setState({                       
-                    geolocal: response.data.results[0].formatted
-                    
-                })         
-            })
-        }
-        if(prevState.geolocal !== this.state.geolocal && this.state.geolocal !== ''){
-            const localSplit = this.state.geolocal.split(',');
-            for(let i = 0; i < localSplit.length; i++){
-                const slice = trim(localSplit[i]);
-                if(slice.length == 9){
-                    const slice01 = slice.split('-');
-                    if(slice01.length == 2){
-                        if(slice01[0].length == 5 && slice01[1].length == 3){
-                            this.setState({
-                                cep: slice,
-                            }); 
-                        }else{
-                            //TEM QUE DAR UM ERRO
-                        }
-                    }
-                    else{
-                        continue;
-                    }
-                }else{
-                    continue;
-                }
-            }                       
-        }
-        if(prevState.cep !== this.state.cep && this.state.cep !== ''){
-            axios.get('https://viacep.com.br/ws/'+this.state.cep+'/json/')
-                .then(response => {
-                    this.setState({
-                        codIBGE: response.data.ibge,
-                        cidade: response.data.localidade+" - "+response.data.uf,
-                    })         
-                })
-        }
     }    
     render(){
         const municipios = this.state.municipios;
@@ -239,16 +188,13 @@ class Location2 extends Component{
 
         const favoritos = this.props.favoritos;
         const count = this.props.count;
-
-        /*console.log(favoritos);
-        console.log(count);        
-        console.log(this.state.favoritos);
-        console.log(this.state.numChildren);*/
+        const codigoIBGE = this.props.codigoIBGE;
 
         const favs = favoritos.map((data) => {
             if(count > 0){
                 return (
-                    <LocationComponent 
+                    <LocationComponent
+                        codigoIBGE={codigoIBGE}
                         codigo={data.codigoIBGE} 
                         nome={data.nome} 
                         uf={data.uf}
@@ -264,28 +210,7 @@ class Location2 extends Component{
                 <h2>Localização</h2>
                 <p> selecione a localização desejada </p>
                 <div className='options' onChange={this.setMunicipio}>
-                    <p>
-                        <div style={{width: "50%", float: "left", marginTop: "7px"}}>  atualmente em: </div>
-                        <div style={{width: "50%", float: "right", textAlign: "right", paddingRight: "20px"}}>
-                            <Form onSubmit={this.getGeolocation}>
-                                <input type="hidden" name="latitude" value={this.props.coords && this.props.coords.latitude} />
-                                <input type="hidden" name="longitude" value={this.props.coords && this.props.coords.longitude} />
-                                <Button type="submit"
-                                    variant="primary" 
-                                    style={{background: "#0075a4", border: "1px solid #0075a4"}} >
-                                    <FontAwesomeIcon icon="map-marker-alt" />
-                                </Button>
-                            </Form>
-                        </div>                        
-                    </p>
-                    <div className="container">
-                        <ul className="list">
-                            <li className="list__item">
-                                <input type="radio" className="radio-btn" name="choice" id={codIBGE} value={codIBGE+','+cidade}/>
-                                <label for={codIBGE} className="label">{cidade}</label>
-                            </li>
-                        </ul>
-                    </div>
+
                     <p>
                         <div style={{width: "50%", float: "left", marginTop: "7px"}}>  favoritos: </div>
                         <div style={{width: "50%", float: "right", textAlign: "right", paddingRight: "20px"}}>  
@@ -367,9 +292,8 @@ const LocationComponent = props =>
     <div className="container">
         <ul className="list">
             <li className="list__item">
-                <input type="radio" className="radio-btn" name="choice" id={props.codigo} value={props.codigo+','+props.nome+','+props.uf}/>
+                <input type="radio" className="radio-btn" name="choice" id={props.codigo} value={props.codigo+','+props.nome+','+props.uf} checked={props.codigoIBGE == props.codigo}/>
                 <label for={props.codigo} className="label">{props.nome} - {props.uf}</label>
             </li>
         </ul>
     </div>;
-export default Location;
