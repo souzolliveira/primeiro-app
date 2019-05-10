@@ -19,6 +19,13 @@ export default class Header extends Component{
             showHistory: false,
             showTutorial: false,
             showAbout: false,
+
+            grupoI: 'ciclo de maturação precoce.',
+            grupoII: 'ciclo de maturação médio.',
+            grupoIII: 'ciclo de maturação tardio.',
+            arenoso: 'Solos de textura arenosa, com teor mínimo de 10% de argila e menor do que 15% ou com teor de argila igual ou maior do que 15%, nos quais a diferença entre o percentual de areia e o percentual de argila seja maior ou igual a 50.',
+            argiloso: 'Solos de textura argilosa, com teor de argila maior ou igual a 35%.',
+            texturaMedia: ' Solos de textura média, com teor mínimo de 15% de argila e menor do que 35%, nos quais diferença entre o percentual de areia e o percentual de argila seja menor do que 50.',
         };       
     }
     /*
@@ -52,28 +59,56 @@ export default class Header extends Component{
                     <Modal.Header closeButton>
                         <Modal.Title>Dicionário</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>                 
-                        <Row>
-                            <label>GRUPO I: </label>
+                    <Modal.Body style={{textAlign: 'justify'}}>                 
+                        <Row style={{marginLeft: '0px', marginRight: '0px'}}>
+                            <label>
+                                <b>GRUPO I:</b> {this.state.grupoI}
+                            </label>
                         </Row>
-                        <Row>
-                            <label>GRUPO II: </label>
+                        <Row style={{marginLeft: '0px', marginRight: '0px'}}>
+                            <label>
+                                <b>GRUPO II:</b> {this.state.grupoII}
+                            </label>
                         </Row>
-                        <Row>
-                            <label>GRUPO III: </label>
+                        <Row style={{marginLeft: '0px', marginRight: '0px'}}>
+                            <label>
+                                <b>GRUPO III:</b> {this.state.grupoIII}
+                            </label>
                         </Row>
-                        <Row>
-                            <label>PERENE: </label>
+                        <Row style={{marginLeft: '0px', marginRight: '0px'}}>
+                            <label>
+                                <b>Referência:</b> o ciclo de maturação de cada cultivar pode ser encontrado no link abaixo
+                                <ul>
+                                    <li>
+                                        <a href='http://www.agricultura.gov.br/assuntos/riscos-seguro/risco-agropecuario/documentos/Parametrosderiscoclimatico.pdf'>
+                                            http://www.agricultura.gov.br/assuntos/riscos-seguro/risco-agropecuario/documentos/Parametrosderiscoclimatico.pdf
+                                        </a>
+                                    </li>
+                                </ul>                            
+                            </label>
                         </Row>
-                        <Row>
-                            <label>ARENOSO: </label>
+                        <Row style={{marginLeft: '0px', marginRight: '0px'}}>
+                            <label><b>ARENOSO:</b> {this.state.arenoso} </label>
                         </Row>
-                        <Row>
-                            <label>ARGILOSO: </label>
+                        <Row style={{marginLeft: '0px', marginRight: '0px'}}>
+                            <label><b>ARGILOSO:</b> {this.state.argiloso} </label>
                         </Row>
-                        <Row>
-                            <label>TEXTURA MÉDIA: </label>
+                        <Row style={{marginLeft: '0px', marginRight: '0px'}}>
+                            <label><b>TEXTURA MÉDIA:</b> {this.state.texturaMedia} </label>
                         </Row>
+                        <Row style={{marginLeft: '0px', marginRight: '0px'}}>
+                            <label>
+                                <b>Referência:</b> 
+                                <ul>
+                                    <li>
+                                        <a href='http://www.agricultura.gov.br/assuntos/riscos-seguro/risco-agropecuario/portarias'>
+                                            http://www.agricultura.gov.br/assuntos/riscos-seguro/risco-agropecuario/portarias
+                                        </a>
+                                    </li>
+                                </ul>                            
+                            </label>
+                        </Row>
+                        
                     </Modal.Body>
                 </Modal>
                 <Modal show={this.state.showHistory} onHide={() => this.setState({showHistory: false})} centered>
