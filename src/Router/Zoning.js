@@ -269,14 +269,45 @@ class Zoneamento extends Component{
                             <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>20%</div> </Col>
                             <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>30%</div> </Col>
                             <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>40%</div> </Col>
-                            <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>sem dados</div> </Col>
+                            <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>sem indicação</div> </Col>
                         </Row>                    
                 </div>
             );
         }else{
+            let municipio = 'preencher';
+            let cultura = 'preencher';
+            let ciclo = 'preencher';
+            let textura = 'preencher';
+            let corMunicipio = '#f3661f';
+            let corCultura = '#f3661f';
+            let corCiclo = '#f3661f';
+            let corTextura = '#f3661f';
+            if(this.props.municipioNome != ''){
+                municipio = this.props.municipioNome +' - '+ this.props.municipioUF;
+                corMunicipio = '#05973f';
+            }
+            if(this.props.culturaNome != ''){
+                cultura = this.props.culturaNome;
+                corCultura = '#05973f';
+            }
+            if(this.props.cicloNome != ''){
+                ciclo = this.props.cicloNome;
+                corCiclo = '#05973f';
+            }
+            if(this.props.texturaNome != ''){
+                textura = this.props.texturaNome;
+                corTextura = '#05973f';
+            }
             return (
-                <div>
-                    <h1> PREENCHA TODOS REQUISITOS </h1>
+                <div className='content'>
+                    <h2> Zoneamento </h2>
+                    <p> É necessário preencher todos os filtros de busca </p>
+                    <div style={{textAlign: 'left'}}>
+                        <p><b> Localização: </b> <label style={{color: corMunicipio}}>{municipio}</label> </p>
+                        <p><b> Cultura: </b>  <label style={{color: corCultura}}>{cultura}</label> </p>
+                        <p><b> Ciclo: </b>  <label style={{color: corCiclo}}>{ciclo}</label> </p>
+                        <p><b> Solo: </b> <label style={{color: corTextura}}>{textura}</label> </p>
+                    </div>
                 </div>
             );
         }        
