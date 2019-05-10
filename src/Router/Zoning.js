@@ -4,22 +4,31 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 
-export default class Texture extends Component{
+import { useGlobalState } from '../state';
+
+export default function Zoning(){
+    const [municipioNome] = useGlobalState('municipioNome');
+    const [codigoIBGE] = useGlobalState('codigoIBGE');
+    const [culturaNome] = useGlobalState('culturaNome');
+    const [culturaID] = useGlobalState('culturaID');
+    const [cicloNome] = useGlobalState('cicloNome');
+    const [texturaNome] = useGlobalState('texturaNome');
+
+    return (
+        <Zoneamento 
+            municipioNome={municipioNome}
+            codigoIBGE={codigoIBGE}
+            culturaNome={culturaNome} 
+            culturaID={culturaID}
+            cicloNome={cicloNome}
+            texturaNome={texturaNome}
+            />
+    )
+}
+class Zoneamento extends Component{
     constructor(props, context){
         super(props, context);
         this.state = {
-
-            municipioNome: '', 
-            codigoIBGE: '',
-
-            culturaNome: '', 
-            culturaID: '',
-
-            cicloNome: '', 
-            cicloID: '',             
-
-            texturaNome: '',
-            texturaID: '',
 
             zoneamento: [                
                 {mes: "Janeiro", dec01: 0, dec02: 0, dec03: 0},
@@ -77,19 +86,19 @@ export default class Texture extends Component{
         }        
     }
     componentDidMount(){
-        axios.get('https://api.cnptia.embrapa.br/agritec/v1/zoneamento?idCultura=56&codigoIBGE=3109709', {headers: {'Authorization': 'Bearer f23a7414-2096-3cc4-93df-1f9b8cdcc548'}})
+        axios.get('https://api.cnptia.embrapa.br/agritec/v1/zoneamento?idCultura='+this.props.culturaID+'&codigoIBGE='+this.props.codigoIBGE+'', {headers: {'Authorization': 'Bearer f23a7414-2096-3cc4-93df-1f9b8cdcc548'}})
           .then(response => {
             this.setState({                        
                 zoneamento20: response.data.data,
             })
         })
-        axios.get('https://api.cnptia.embrapa.br/agritec/v1/zoneamento?idCultura=56&codigoIBGE=3109709&risco=30', {headers: {'Authorization': 'Bearer f23a7414-2096-3cc4-93df-1f9b8cdcc548'}})
+        axios.get('https://api.cnptia.embrapa.br/agritec/v1/zoneamento?idCultura='+this.props.culturaID+'&codigoIBGE='+this.props.codigoIBGE+'&risco=30', {headers: {'Authorization': 'Bearer f23a7414-2096-3cc4-93df-1f9b8cdcc548'}})
           .then(response => {
             this.setState({                        
                 zoneamento30: response.data.data,
             })
         })
-        axios.get('https://api.cnptia.embrapa.br/agritec/v1/zoneamento?idCultura=56&codigoIBGE=3109709&risco=40', {headers: {'Authorization': 'Bearer f23a7414-2096-3cc4-93df-1f9b8cdcc548'}})
+        axios.get('https://api.cnptia.embrapa.br/agritec/v1/zoneamento?idCultura='+this.props.culturaID+'&codigoIBGE='+this.props.codigoIBGE+'&risco=40', {headers: {'Authorization': 'Bearer f23a7414-2096-3cc4-93df-1f9b8cdcc548'}})
           .then(response => {
             this.setState({                        
                 zoneamento40: response.data.data,
@@ -99,7 +108,7 @@ export default class Texture extends Component{
     componentDidUpdate(prevProps, prevState){        
         if(prevState.zoneamento20 !== this.state.zoneamento20){
             for(let i = 0; i < this.state.zoneamento20.length; i++){
-                if(this.state.zoneamento20[i].cultura != '' && this.state.zoneamento20[i].ciclo == 'GRUPO I' && this.state.zoneamento20[i].solo == 'ARENOSO'){
+                if(this.state.zoneamento20[i].cultura != '' && this.state.zoneamento20[i].ciclo == this.props.cicloNome && this.state.zoneamento20[i].solo == this.props.texturaNome){
                     let mes = this.state.zoneamento20[i].mesIni - 1;
                     let dec = this.state.zoneamento20[i].diaIni;
                     let newState = Object.assign({}, this.state);                   
@@ -125,7 +134,7 @@ export default class Texture extends Component{
         }
         if(prevState.zoneamento30 !== this.state.zoneamento30){
             for(let i = 0; i < this.state.zoneamento30.length; i++){
-                if(this.state.zoneamento30[i].cultura != '' && this.state.zoneamento30[i].ciclo == 'GRUPO I' && this.state.zoneamento30[i].solo == 'ARENOSO'){
+                if(this.state.zoneamento30[i].cultura != '' && this.state.zoneamento30[i].ciclo == this.props.cicloNome && this.state.zoneamento30[i].solo == this.props.texturaNome){
                     let mes = this.state.zoneamento30[i].mesIni - 1;
                     let dec = this.state.zoneamento30[i].diaIni;
                     let newState = Object.assign({}, this.state);                    
@@ -151,7 +160,7 @@ export default class Texture extends Component{
         }
         if(prevState.zoneamento40 !== this.state.zoneamento40){
             for(let i = 0; i < this.state.zoneamento40.length; i++){
-                if(this.state.zoneamento40[i].cultura != '' && this.state.zoneamento40[i].ciclo == 'GRUPO I' && this.state.zoneamento40[i].solo == 'ARENOSO'){
+                if(this.state.zoneamento40[i].cultura != '' && this.state.zoneamento40[i].ciclo == this.props.cicloNome && this.state.zoneamento40[i].solo == this.props.texturaNome){
                     let mes = this.state.zoneamento40[i].mesIni - 1;
                     let dec = this.state.zoneamento40[i].diaIni;
                     let newState = Object.assign({}, this.state);                    
@@ -226,12 +235,12 @@ export default class Texture extends Component{
             <div className='content zoning'>
                                
                     <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto", background: "#0075a4", color: "#e5eff4"}}>
-                        <Col> CACHOEIRA DE MINAS - MG </Col>
+                        <Col> {this.props.municipioNome} </Col>
                     </Row>
                     <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto", background: "#0075a4", color: "#e5eff4"}}>
-                        <Col> MILHO </Col>
-                        <Col> GRUPO I </Col>
-                        <Col> ARENOSO </Col>
+                        <Col> {this.props.culturaNome} </Col>
+                        <Col> {this.props.cicloNome} </Col>
+                        <Col> {this.props.texturaNome} </Col>
                     </Row>
 
                     <Row style={{maxWidth: "400px", textAlign: "center", margin: "0px auto"}}>
