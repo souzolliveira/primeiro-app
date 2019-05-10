@@ -20,10 +20,10 @@ import { dispatch, useGlobalState } from '../state';
 library.add(faPlus)
 library.add(faMapMarkerAlt)
 
-const setMunicipio = (municipioNome, municipioUF, municipioIBGE) => dispatch({
+const setMunicipio = (municipioNome, municipioUF, codigoIBGE) => dispatch({
     municipioNome: municipioNome,
     municipioUF: municipioUF,
-    municipioIBGE: municipioIBGE,
+    codigoIBGE: codigoIBGE,
     type: 'setMunicipio',
 });
 const addMunicipio = (favoritos) => dispatch({

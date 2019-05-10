@@ -8,6 +8,7 @@ import { useGlobalState } from '../state';
 
 export default function Zoning(){
     const [municipioNome] = useGlobalState('municipioNome');
+    const [municipioUF] = useGlobalState('municipioUF');
     const [codigoIBGE] = useGlobalState('codigoIBGE');
     const [culturaNome] = useGlobalState('culturaNome');
     const [culturaID] = useGlobalState('culturaID');
@@ -17,6 +18,7 @@ export default function Zoning(){
     return (
         <Zoneamento 
             municipioNome={municipioNome}
+            municipioUF={municipioUF}
             codigoIBGE={codigoIBGE}
             culturaNome={culturaNome} 
             culturaID={culturaID}
@@ -235,7 +237,7 @@ class Zoneamento extends Component{
             <div className='content zoning'>
                                
                     <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto", background: "#0075a4", color: "#e5eff4"}}>
-                        <Col> {this.props.municipioNome} </Col>
+                        <Col> {this.props.municipioNome} - {this.props.municipioUF} - {this.props.codigoIBGE} </Col>
                     </Row>
                     <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto", background: "#0075a4", color: "#e5eff4"}}>
                         <Col> {this.props.culturaNome} </Col>
