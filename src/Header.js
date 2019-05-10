@@ -77,11 +77,11 @@ export default class Header extends Component{
                         </Row>
                         <Row style={{marginLeft: '0px', marginRight: '0px'}}>
                             <label>
-                                <b>Referência:</b> o ciclo de maturação de cada cultivar pode ser encontrado no link abaixo
+                                <b>Referência:</b> o ciclo de maturação de cada cultivar pode ser encontrado no pdf abaixo
                                 <ul>
                                     <li>
                                         <a href='http://www.agricultura.gov.br/assuntos/riscos-seguro/risco-agropecuario/documentos/Parametrosderiscoclimatico.pdf'>
-                                            http://www.agricultura.gov.br/assuntos/riscos-seguro/risco-agropecuario/documentos/Parametrosderiscoclimatico.pdf
+                                            Parâmetros de Risco Climático
                                         </a>
                                     </li>
                                 </ul>                            
@@ -100,9 +100,9 @@ export default class Header extends Component{
                             <label>
                                 <b>Referência:</b> 
                                 <ul>
-                                    <li>
+                                    <li style={{textAlign: 'left'}}>
                                         <a href='http://www.agricultura.gov.br/assuntos/riscos-seguro/risco-agropecuario/portarias'>
-                                            http://www.agricultura.gov.br/assuntos/riscos-seguro/risco-agropecuario/portarias
+                                            Portarias do Ministério da Agricultura
                                         </a>
                                     </li>
                                 </ul>                            
