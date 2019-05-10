@@ -20,8 +20,9 @@ import { dispatch, useGlobalState } from '../state';
 library.add(faPlus)
 library.add(faMapMarkerAlt)
 
-const setMunicipio = (municipioNome, municipioIBGE) => dispatch({
+const setMunicipio = (municipioNome, municipioUF, municipioIBGE) => dispatch({
     municipioNome: municipioNome,
+    municipioUF: municipioUF,
     municipioIBGE: municipioIBGE,
     type: 'setMunicipio',
 });
@@ -37,7 +38,6 @@ const count = () => dispatch({
 function Location(){
     const [ favoritos ] = useGlobalState('favoritos');
     const [ count ] = useGlobalState('count');
-    //console.log(count);
     return (
         <Location2 favoritos={favoritos} count={count}/>
     )
@@ -176,7 +176,7 @@ class Location2 extends Component{
                 }
             ),            
         });
-        setMunicipio(this.state.municipio.nome, this.state.municipio.codigoIBGE);
+        setMunicipio(array[1], array[2], array[0]);
     }
 
     componentDidUpdate(prevProps, prevState){

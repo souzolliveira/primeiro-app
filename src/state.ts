@@ -4,7 +4,7 @@ import { statement } from '@babel/template';
 type Action = 
   |  { type: 'setGeolocation'; geolocationNome: string; geolocationIBGE: string}
   |  { type: 'addMunicipio'; favoritos: [{ codigoIBGE: string, nome: string, uf: string}]}
-  |  { type: 'setMunicipio'; municipioNome: string; codigoIBGE: string}
+  |  { type: 'setMunicipio'; municipioNome: string; municipioUF: string, codigoIBGE: string}
   |  { type: 'setCultura'; culturaNome: string; culturaID: string}
   |  { type: 'addCultura'; culturas: [{ id: string, cultura: string}]}
   |  { type: 'setCiclo'; cicloNome: string; cicloID: string}
@@ -30,6 +30,7 @@ type Action =
         case 'setMunicipio': return {
             ...state,
             municipioNome: action.municipioNome,
+            municipioUF: action.municipioUF,
             codigoIBGE: action.codigoIBGE,
         };
         case 'setCultura': return {
@@ -66,6 +67,7 @@ type Action =
       count: 0,
 
       municipioNome: '',
+      municipioUF: '',
       codigoIBGE: '',
 
       culturaNome: '',
