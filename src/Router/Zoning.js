@@ -302,7 +302,7 @@ class Zoneamento extends Component{
                 <div className='content'>
                     <h2> Zoneamento </h2>
                     <p> É necessário preencher todos os filtros de busca </p>
-                    <div style={{textAlign: 'left'}}>
+                    <div style={{textAlign: 'left'}} className='container'>
                         <p><b> Localização: </b> <label style={{color: corMunicipio}}>{municipio}</label> </p>
                         <p><b> Cultura: </b>  <label style={{color: corCultura}}>{cultura}</label> </p>
                         <p><b> Ciclo: </b>  <label style={{color: corCiclo}}>{ciclo}</label> </p>

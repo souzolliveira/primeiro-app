@@ -69,7 +69,6 @@ body{
 
 /************************RADIO BUTTONS*************************/
 .container {
-  display: flex;
   width: 100%;
 }
 .list {
