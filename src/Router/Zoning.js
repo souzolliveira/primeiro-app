@@ -188,10 +188,8 @@ class Zoneamento extends Component{
         }
     }
     
-    render(){
-        
+    render(){        
         const zoneamento = this.state.zoneamento;
-        //console.log(zoneamento);
         const zoning = zoneamento.map((data) => {
             let corDec01 = "";
             let corDec02 = "";
@@ -232,47 +230,55 @@ class Zoneamento extends Component{
                 </Row>                
             );
             
-        }); 
-        return(
-            <div className='content zoning'>
-                               
-                    <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto", background: "#0075a4", color: "#e5eff4"}}>
-                        <Col> {this.props.municipioNome} - {this.props.municipioUF} - {this.props.codigoIBGE} </Col>
-                    </Row>
-                    <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto", background: "#0075a4", color: "#e5eff4"}}>
-                        <Col> {this.props.culturaNome} </Col>
-                        <Col> {this.props.cicloNome} </Col>
-                        <Col> {this.props.texturaNome} </Col>
-                    </Row>
-
-                    <Row style={{maxWidth: "400px", textAlign: "center", margin: "0px auto"}}>
-                        <Col style={{padding: "0"}}> <div style={{width: "150px", padding: "5px 0"}}>mês/decênios</div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{width: "30px", height: "30px", borderRadius: "50%", margin: "5px auto"}}>1</div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{width: "30px", height: "30px", borderRadius: "50%", margin: "5px auto"}}>2</div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{width: "30px", height: "30px", borderRadius: "50%", margin: "5px auto"}}>3</div> </Col>
-                    </Row>
-
-                    {zoning}
-
-                    <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto"}}>
-                        <br />
-                    </Row>
-                    <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto"}}>
-                        <Col style={{padding: "0"}}> <div style={{width: "150px", margin: "0px auto", padding: "0 10px", textAlign: "left"}}>Legenda</div> </Col>
-
-                        <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", background: "#05973f", margin: "0px auto"}}></div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", background: "#f8bc82", margin: "0px auto"}}></div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", background: "#f3661f", margin: "0px auto"}}></div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", background: "#a3a3a3", margin: "0px auto"}}></div> </Col>
-                    </Row> 
-                    <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto"}}>
-                        <Col style={{padding: "0"}}> <div style={{width: "150px", margin: "0px auto", textAlign: "center"}}>risco até</div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>20%</div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>30%</div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>40%</div> </Col>
-                        <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>sem dados</div> </Col>
-                    </Row>                    
-            </div>
-        );
+        });
+        if(this.props.codigoIBGE != '' && this.props.culturaID != '' && this.props.cicloNome != '' && this.props.texturaNome != ''){
+            return(
+                <div className='content zoning'>
+                                   
+                        <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto", background: "#0075a4", color: "#e5eff4"}}>
+                            <Col> {this.props.municipioNome} - {this.props.municipioUF}</Col>
+                        </Row>
+                        <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto", background: "#0075a4", color: "#e5eff4"}}>
+                            <Col> {this.props.culturaNome} </Col>
+                            <Col> {this.props.cicloNome} </Col>
+                            <Col> {this.props.texturaNome} </Col>
+                        </Row>
+    
+                        <Row style={{maxWidth: "400px", textAlign: "center", margin: "0px auto"}}>
+                            <Col style={{padding: "0"}}> <div style={{width: "150px", padding: "5px 0"}}>mês/decênios</div> </Col>
+                            <Col style={{padding: "0"}}> <div style={{width: "30px", height: "30px", borderRadius: "50%", margin: "5px auto"}}>1</div> </Col>
+                            <Col style={{padding: "0"}}> <div style={{width: "30px", height: "30px", borderRadius: "50%", margin: "5px auto"}}>2</div> </Col>
+                            <Col style={{padding: "0"}}> <div style={{width: "30px", height: "30px", borderRadius: "50%", margin: "5px auto"}}>3</div> </Col>
+                        </Row>
+    
+                        {zoning}
+    
+                        <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto"}}>
+                            <br />
+                        </Row>
+                        <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto"}}>
+                            <Col style={{padding: "0"}}> <div style={{width: "150px", margin: "0px auto", padding: "0 10px", textAlign: "left"}}>Legenda</div> </Col>
+    
+                            <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", background: "#05973f", margin: "0px auto"}}></div> </Col>
+                            <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", background: "#f8bc82", margin: "0px auto"}}></div> </Col>
+                            <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", background: "#f3661f", margin: "0px auto"}}></div> </Col>
+                            <Col style={{padding: "0"}}> <div style={{width: "20px", height: "20px", borderRadius: "50%", background: "#a3a3a3", margin: "0px auto"}}></div> </Col>
+                        </Row> 
+                        <Row style={{maxWidth: "600px", textAlign: "center", margin: "0px auto"}}>
+                            <Col style={{padding: "0"}}> <div style={{width: "150px", margin: "0px auto", textAlign: "center"}}>risco até</div> </Col>
+                            <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>20%</div> </Col>
+                            <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>30%</div> </Col>
+                            <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>40%</div> </Col>
+                            <Col style={{padding: "0"}}> <div style={{margin: "0px auto"}}>sem dados</div> </Col>
+                        </Row>                    
+                </div>
+            );
+        }else{
+            return (
+                <div>
+                    <h1> PREENCHA TODOS REQUISITOS </h1>
+                </div>
+            );
+        }        
     }
 }
