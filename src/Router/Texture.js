@@ -9,15 +9,16 @@ const setTextura = (event) => dispatch({
 });
 
 export default function Texture(){
-    const [texturaID] = useGlobalState('texturaID');
+    let [texturaID] = useGlobalState('texturaID');
+    texturaID = parseInt(texturaID, 10);
     const checked = [0, 0, 0];
-    if(texturaID == 1){
+    if(texturaID === 1){
         checked[0] = 1;
     }
-    else if(texturaID == 2){
+    else if(texturaID === 2){
         checked[1] = 1;
     }
-    else if(texturaID == 3){
+    else if(texturaID === 3){
         checked[2] = 1;
     }
     return(
@@ -44,8 +45,8 @@ export default function Texture(){
                 <div className="container">
                     <ul className="list">
                         <li className="list__item">
-                            <input type="radio" className="radio-btn" name="choice" id="3" value="TEXTURA MÉDIA" checked={checked[2]}/>
-                            <label for="3" className="label">TEXTURA MÉDIA</label>
+                            <input type="radio" className="radio-btn" name="choice" id="3" value="TEXTURA MEDIA" checked={checked[2]}/>
+                            <label for="3" className="label">TEXTURA MEDIA</label>
                         </li>
                     </ul>
                 </div>

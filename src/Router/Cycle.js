@@ -9,15 +9,16 @@ const setCiclo = (event) => dispatch({
 });
 
 export default function Cycle(){
-    const [cicloID] = useGlobalState('cicloID');
+    let [cicloID] = useGlobalState('cicloID');
+    cicloID = parseInt(cicloID, 10);
     const checked = [0, 0, 0];
-    if(cicloID == 1){
+    if(cicloID === 1){
         checked[0] = 1;
     }
-    else if(cicloID == 2){
+    else if(cicloID === 2){
         checked[1] = 1;
     }
-    else if(cicloID == 3){
+    else if(cicloID === 3){
         checked[2] = 1;
     }
     return(

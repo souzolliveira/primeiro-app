@@ -1,5 +1,4 @@
 import {createStore} from 'react-hooks-global-state';
-import { statement } from '@babel/template';
 
 type Action = 
   |  { type: 'setGeolocation'; geolocationNome: string; geolocationIBGE: string}

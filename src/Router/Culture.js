@@ -1,4 +1,4 @@
-import React, {Component, useEffect}  from 'react';
+import React, { useEffect }  from 'react';
 import axios from 'axios';
 
 import { dispatch, useGlobalState } from '../state';
@@ -21,20 +21,23 @@ export default function Culture(){
         })
     });
     const [cult] = useGlobalState('culturas');
-    const [culturaID] = useGlobalState('culturaID');
+    let [culturaID] = useGlobalState('culturaID');
+    culturaID = parseInt(culturaID, 10);
 
-    let optionItems = cult.map((data) =>{
-        if(data.id != 0){
+    let optionItems = cult.map((data) => {
+        if(data.id !== 0){
             return(
                 <div className="container">
                     <ul className="list">
                         <li className="list__item">
-                            <input type="radio" className="radio-btn" name="choice" id={data.id} value={data.cultura} checked={culturaID == data.id}/>
+                            <input type="radio" className="radio-btn" name="choice" id={data.id} value={data.cultura} checked={culturaID === data.id}/>
                             <label for={data.id} className="label">{data.cultura}</label>
                         </li>
                     </ul>
                 </div>
             );
+        }else{
+            return null;
         }
     });
     return (

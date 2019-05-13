@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import trim from 'trim';
 
 import './Location.css';
 
@@ -103,7 +102,7 @@ class Localizacao extends Component{
             })
             count();
         }else{
-            if(this.state.numChildren == 0){
+            if(this.state.numChildren === 0){
                 const fav = [{codigoIBGE: this.state.newFav.codigoIBGE, nome: this.state.newFav.nome, uf: this.state.newFav.uf}];
                 addMunicipio(fav);
             }
@@ -113,7 +112,7 @@ class Localizacao extends Component{
                 addMunicipio(fav2);
             }
             const favoritos = this.state.favoritos.slice(0, this.state.numChildren + 1);
-            if(this.state.numChildren == 0){
+            if(this.state.numChildren === 0){
                 this.setState({
                     favoritos: ([
                         { 
@@ -172,8 +171,7 @@ class Localizacao extends Component{
     componentDidUpdate(prevProps, prevState){
         if(prevState.uf !== this.state.uf){
             axios.get('https://api.cnptia.embrapa.br/agritec/v1/municipios?uf='+this.state.uf+'', {headers: {'Authorization': 'Bearer f23a7414-2096-3cc4-93df-1f9b8cdcc548'}})
-                .then
-                    (response => {
+                .then(response => {
                         this.setState({                       
                             municipios: response.data.data
                         })        
@@ -201,10 +199,10 @@ class Localizacao extends Component{
                     />
                 );
             
+            }else{
+                return null;
             }
         });
-        const cidade = this.state.cidade;
-        const codIBGE = this.state.codIBGE;
         return(
             <div className='content'>
                 <h2>Localização</h2>
@@ -292,7 +290,7 @@ const LocationComponent = props =>
     <div className="container">
         <ul className="list">
             <li className="list__item">
-                <input type="radio" className="radio-btn" name="choice" id={props.codigo} value={props.codigo+','+props.nome+','+props.uf} checked={props.codigoIBGE == props.codigo}/>
+                <input type="radio" className="radio-btn" name="choice" id={props.codigo} value={props.codigo+','+props.nome+','+props.uf} checked={props.codigoIBGE === props.codigo}/>
                 <label for={props.codigo} className="label">{props.nome} - {props.uf}</label>
             </li>
         </ul>
