@@ -76,18 +76,6 @@ export default class Header extends Component{
                             </label>
                         </Row>
                         <Row style={{marginLeft: '0px', marginRight: '0px'}}>
-                            <label>
-                                <b>Referência:</b> o ciclo de maturação de cada cultivar pode ser encontrado no pdf abaixo
-                                <ul>
-                                    <li>
-                                        <a href='http://www.agricultura.gov.br/assuntos/riscos-seguro/risco-agropecuario/documentos/Parametrosderiscoclimatico.pdf'>
-                                            Parâmetros de Risco Climático
-                                        </a>
-                                    </li>
-                                </ul>                            
-                            </label>
-                        </Row>
-                        <Row style={{marginLeft: '0px', marginRight: '0px'}}>
                             <label><b>ARENOSO:</b> {this.state.arenoso} </label>
                         </Row>
                         <Row style={{marginLeft: '0px', marginRight: '0px'}}>
@@ -98,17 +86,26 @@ export default class Header extends Component{
                         </Row>
                         <Row style={{marginLeft: '0px', marginRight: '0px'}}>
                             <label>
-                                <b>Referência:</b> 
+                                <b>Referências:</b> 
                                 <ul>
+                                    <li>
+                                    <a href='http://www.agricultura.gov.br/assuntos/riscos-seguro/risco-agropecuario/portarias'>
+                                            Portarias do MAPA
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href='http://www.agricultura.gov.br/assuntos/riscos-seguro/risco-agropecuario/documentos/Parametrosderiscoclimatico.pdf'>
+                                            Parâmetros de Risco Climático (pdf)
+                                        </a>
+                                    </li>
                                     <li style={{textAlign: 'left'}}>
-                                        <a href='http://www.agricultura.gov.br/assuntos/riscos-seguro/risco-agropecuario/portarias'>
-                                            Portarias do Ministério da Agricultura
+                                        <a href='http://www.agricultura.gov.br/assuntos/riscos-seguro/risco-agropecuario/documentos/INn2de09.10.2008.pdf'>
+                                            INSTRUÇÃO NORMATIVA Nº 2, DE 9 DE OUTUBRO DE 2008 (pdf)
                                         </a>
                                     </li>
                                 </ul>                            
                             </label>
                         </Row>
-                        
                     </Modal.Body>
                 </Modal>
                 <Modal show={this.state.showHistory} onHide={() => this.setState({showHistory: false})} centered>
